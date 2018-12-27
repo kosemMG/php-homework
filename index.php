@@ -1,5 +1,7 @@
 <?php
 
+// Author: Moshe Gelberg
+
 // Task 1, 2, 3
 
 class Product
