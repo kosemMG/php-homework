@@ -1,4 +1,7 @@
 <?php
+
+use app\models\Model;
+
 interface IModel
 {
     public function getOne(int $id): Model;
