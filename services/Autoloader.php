@@ -12,6 +12,8 @@ class Autoloader
 
         if (file_exists($file_name)) {
             include $file_name;
+        } else {
+            echo "Class file {$file_name} is not found";
         }
     }
 }
