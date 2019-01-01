@@ -14,15 +14,15 @@ abstract class Model implements IModel
         $this->db = new Db();
     }
 
-    public function get_one(int $id)
+    public function getOne(int $id)
     {
-        $sql = "SELECT * FROM {$this->get_table_name()} WHERE id = {$id}";
-        return $this->db->query_one($sql);
+        $sql = "SELECT * FROM {$this->getTableName()} WHERE id = {$id}";
+        return $this->db->queryOne($sql);
     }
 
-    public function get_all()
+    public function getAll()
     {
         $sql = "SELECT * FROM {$this->get_table_name()}";
-        return $this->db->query_all($sql);
+        return $this->db->queryAll($sql);
     }
 }

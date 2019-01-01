@@ -11,7 +11,7 @@ class Product extends  Model
     public $vendor_id;
     public $image_path;
 
-    public function get_table_name() : string
+    public function getTableName() : string
     {
         return 'products';
     }

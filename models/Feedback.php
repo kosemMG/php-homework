@@ -9,7 +9,7 @@ class Feedback extends Model
     public $user_id;
     public $message;
 
-    public function get_table_name(): string
+    public function getTableName(): string
     {
         return 'feedbacks';
     }

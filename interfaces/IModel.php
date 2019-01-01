@@ -5,9 +5,9 @@ namespace app\interfaces;
 
 interface IModel
 {
-    function get_one(int $id);
+    function getOne(int $id);
 
-    function get_all();
+    function getAll();
 
-    function get_table_name() : string;
+    function getTableName() : string;
 }
