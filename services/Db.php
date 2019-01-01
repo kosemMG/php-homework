@@ -6,12 +6,12 @@ use app\interfaces\IDb;
 
 class Db implements IDb
 {
-    public function query_one(string $sql, array $params = [])
-    {
+    public function queryOne(string $sql, array $params = [])
+    {gig
         return [];
     }
 
-    public function query_all(string $sql, array $params = [])
+    public function queryAll(string $sql, array $params = [])
     {
         return [];
     }
