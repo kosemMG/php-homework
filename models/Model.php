@@ -22,7 +22,7 @@ abstract class Model implements IModel
 
     public function getAll()
     {
-        $sql = "SELECT * FROM {$this->get_table_name()}";
+        $sql = "SELECT * FROM {$this->getTableName()}";
         return $this->db->queryAll($sql);
     }
 }
