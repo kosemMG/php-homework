@@ -14,7 +14,7 @@ class Db implements IDb
         'host' => '127.0.0.1',
         'login' => 'root',
         'password' => 'password',
-        'database' => 'comp_shop',
+        'database' => 'brand_shop',
         'charset' => 'utf8'
     ];
 
@@ -61,6 +61,13 @@ class Db implements IDb
     public function queryAll(string $sql, array $params = [])
     {
         return $this->query($sql, $params)->fetchAll();
+    }
+
+    public function queryObject($sql, $class, $params = []) {
+        $pdo_statement = $this->query($sql, $params);
+        $pdo_statement->setFetchMode(\PDO::FETCH_CLASS, $class);
+
+        return $pdo_statement->fetch();
     }
 
     public function execute($sql, $params = [])
