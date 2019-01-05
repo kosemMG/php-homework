@@ -17,12 +17,12 @@ abstract class Model implements IModel
     public function getOne(int $id)
     {
         $sql = "SELECT * FROM {$this->getTableName()} WHERE id = :id";
-        return $this->db->queryOne($sql, [':id' => $id]);
+        return $this->db->queryObject($sql, get_called_class(), [':id' => $id]);
     }
 
     public function getAll()
     {
         $sql = "SELECT * FROM {$this->getTableName()}";
-        return $this->db->queryAll($sql);
+        return $this->db->queryAllObjects($sql, get_called_class());
     }
 }

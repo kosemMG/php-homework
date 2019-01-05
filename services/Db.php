@@ -65,9 +65,16 @@ class Db implements IDb
 
     public function queryObject($sql, $class, $params = []) {
         $pdo_statement = $this->query($sql, $params);
-        $pdo_statement->setFetchMode(\PDO::FETCH_CLASS, $class);
+        $pdo_statement->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
 
         return $pdo_statement->fetch();
+    }
+
+    public function queryAllObjects($sql, $class, $params = []) {
+        $pdo_statement = $this->query($sql, $params);
+        $pdo_statement->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
+
+        return $pdo_statement->fetchAll();
     }
 
     public function execute($sql, $params = [])

@@ -8,4 +8,4 @@ use \app\services\Autoloader;
 spl_autoload_register([new Autoloader(), 'load_class']);
 
 $product = new \app\models\Product();
-$product->getAll();
+var_dump($product->getAll());
