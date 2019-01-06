@@ -82,4 +82,9 @@ class Db implements IDb
         $this->query($sql, $params);
         return true;
     }
+
+    public function lastInsertId()
+    {
+        return $this->getConnection()->lastInsertId();
+    }
 }
