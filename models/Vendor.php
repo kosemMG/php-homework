@@ -8,7 +8,7 @@ class Vendor extends Model
     public $id;
     public $name;
 
-    public function getTableName(): string
+    public static function getTableName(): string
     {
         return 'vendors';
     }

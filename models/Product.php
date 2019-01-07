@@ -4,32 +4,40 @@ namespace app\models;
 
 class Product extends Model
 {
-    public $id;
-    public $name;
-    public $description;
-    public $price;
-    public $vendor_id;
-    public $image_path;
+    public $properties = [
+        'id' => '',
+        'name' => '',
+        'description' => '',
+        'price' => '',
+        'vendor_id' => '',
+        'image_path' => ''
+    ];
 
-    public function __construct(
-        $id = null,
-        $name = null,
-        $description = null,
-        $price = null,
-        $vendor_id = null,
-        $image_path = null
-    )
+    public $old_properties = [
+        'id' => '',
+        'name' => '',
+        'description' => '',
+        'price' => '',
+        'vendor_id' => '',
+        'image_path' => ''
+    ];
+
+    public function __set($name, $value)
     {
-        parent::__construct();
-        $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
-        $this->price = $price;
-        $this->vendor_id = $vendor_id;
-        $this->image_path = $image_path;
+        if (isset($this->properties[$name])) {
+            $this->properties[$name] = $value;
+            $this->old_properties[$name] = $value;
+        }
     }
 
-    public function getTableName(): string
+    public function __get($name)
+    {
+        if (isset($this->properties[$name])) {
+            return $this->properties[$name];
+        }
+    }
+
+    public static function getTableName(): string
     {
         return 'products';
     }

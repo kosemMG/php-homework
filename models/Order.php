@@ -9,7 +9,7 @@ class Order extends Model
     public $user_id;
     public $cart_id;
 
-    public function getTableName() : string
+    public static function getTableName() : string
     {
         return 'orders';
     }

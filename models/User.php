@@ -11,7 +11,7 @@ class User extends Model
     public $name;
     public $email;
 
-    public function getTableName() : string
+    public static function getTableName() : string
     {
         return 'users';
     }
