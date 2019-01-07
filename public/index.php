@@ -6,7 +6,7 @@ include ROOT_DIR . "services/Autoloader.php";
 use \app\services\Autoloader;
 use \app\models;
 
-spl_autoload_register([new Autoloader(), 'load_class']);
+spl_autoload_register([new Autoloader(), 'loadClass']);
 
 $product = new models\Product();
 $user = new models\User();
