@@ -2,7 +2,10 @@
 
 namespace app\interfaces;
 
-
+/**
+ * Interface IModel
+ * @package app\interfaces
+ */
 interface IModel
 {
     public static function getOne(int $id);

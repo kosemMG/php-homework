@@ -2,6 +2,10 @@
 
 namespace app\models;
 
+/**
+ * Class Product
+ * @package app\models
+ */
 class Product extends Model
 {
     public $properties = [
@@ -22,6 +26,10 @@ class Product extends Model
         'image_path' => ''
     ];
 
+    /**
+     * @param $name
+     * @param $value
+     */
     public function __set($name, $value)
     {
         if (isset($this->properties[$name])) {
@@ -30,6 +38,10 @@ class Product extends Model
         }
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function __get($name)
     {
         if (isset($this->properties[$name])) {
@@ -37,6 +49,10 @@ class Product extends Model
         }
     }
 
+    /**
+     * Returns 'products' the name of products table.
+     * @return string
+     */
     public static function getTableName(): string
     {
         return 'products';

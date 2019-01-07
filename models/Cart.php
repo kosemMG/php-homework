@@ -2,7 +2,10 @@
 
 namespace app\models;
 
-
+/**
+ * Class Cart
+ * @package app\models
+ */
 class Cart extends Model
 {
     public $properties = [
@@ -21,6 +24,33 @@ class Cart extends Model
         'status' => '',
     ];
 
+    /**
+     * @param $name
+     * @param $value
+     */
+    public function __set($name, $value)
+    {
+        if (isset($this->properties[$name])) {
+            $this->properties[$name] = $value;
+            $this->old_properties[$name] = $value;
+        }
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if (isset($this->properties[$name])) {
+            return $this->properties[$name];
+        }
+    }
+
+    /**
+     * Returns 'carts' the name of carts table.
+     * @return string
+     */
     public static function getTableName(): string
     {
         return 'carts';

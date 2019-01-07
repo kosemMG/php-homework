@@ -5,6 +5,10 @@ namespace app\services;
 use app\interfaces\IDb;
 use app\traits\TSingleton;
 
+/**
+ * Class Db contains methods managing a database.
+ * @package app\services
+ */
 class Db implements IDb
 {
     use TSingleton;
@@ -20,6 +24,10 @@ class Db implements IDb
 
     private $conn = null;
 
+    /**
+     * Creates connection via PDO.
+     * @return \PDO|null
+     */
     private function getConnection()
     {
         if (is_null($this->conn)) {
@@ -35,6 +43,10 @@ class Db implements IDb
         return $this->conn;
     }
 
+    /**
+     * Prepares DSN string.
+     * @return string
+     */
     private function prepareDsnString()
     {
         return sprintf('%s:host=%s;dbname=%s;charset=%s',
@@ -45,6 +57,12 @@ class Db implements IDb
         );
     }
 
+    /**
+     * Creates PDOStatement and executes SQL query.
+     * @param $sql
+     * @param array $params
+     * @return bool|\PDOStatement
+     */
     private function query($sql, $params = [])
     {
         $pdo_statement = $this->getConnection()->prepare($sql);
@@ -53,16 +71,35 @@ class Db implements IDb
         return $pdo_statement;
     }
 
+    /**
+     * Returns an array.
+     * @param string $sql
+     * @param array $params
+     * @return array
+     */
     public function queryOne(string $sql, array $params = [])
     {
         return $this->queryAll($sql, $params)[0];
     }
 
+    /**
+     * Returnds an array of arrays.
+     * @param string $sql
+     * @param array $params
+     * @return array
+     */
     public function queryAll(string $sql, array $params = [])
     {
         return $this->query($sql, $params)->fetchAll();
     }
 
+    /**
+     * Returns an object.
+     * @param $sql
+     * @param $class
+     * @param array $params
+     * @return object
+     */
     public function queryObject($sql, $class, $params = []) {
         $pdo_statement = $this->query($sql, $params);
         $pdo_statement->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
@@ -70,6 +107,13 @@ class Db implements IDb
         return $pdo_statement->fetch();
     }
 
+    /**
+     * Returns an array of objects.
+     * @param $sql
+     * @param $class
+     * @param array $params
+     * @return array
+     */
     public function queryAllObjects($sql, $class, $params = []) {
         $pdo_statement = $this->query($sql, $params);
         $pdo_statement->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
@@ -77,6 +121,12 @@ class Db implements IDb
         return $pdo_statement->fetchAll();
     }
 
+    /**
+     * Executes an SQL query.
+     * @param $sql
+     * @param array $params
+     * @return bool
+     */
     public function execute($sql, $params = [])
     {
         $this->query($sql, $params);

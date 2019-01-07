@@ -5,10 +5,17 @@ namespace app\models;
 use app\interfaces\IModel;
 use app\services\Db;
 
+/**
+ * Class Model - an abstract class, a parent. Contains methods creating objects and changing a database.
+ * @package app\models
+ */
 abstract class Model implements IModel
 {
     protected $db;
 
+    /**
+     * Model constructor.
+     */
     public function __construct()
     {
         $this->db = Db::getInstance();
@@ -35,6 +42,10 @@ abstract class Model implements IModel
         return Db::getInstance()->queryAllObjects($sql, get_called_class());
     }
 
+    /**
+     * Deletes a row from a database.
+     * @return bool
+     */
     public function delete()
     {
         $table_name = static::getTableName();
@@ -42,7 +53,10 @@ abstract class Model implements IModel
         return $this->db->execute($sql, [':id' => $this->id]);
     }
 
-    public function commit()
+    /**
+     * Saves changes in a database.
+     */
+    public function commitChange()
     {
         if ($this->id === '') {
             $this->insert();
@@ -53,7 +67,10 @@ abstract class Model implements IModel
         }
     }
 
-    public function insert()
+    /**
+     * Inserts a row to a database.
+     */
+    private function insert()
     {
         $columns = [];
         $params = [];
@@ -78,11 +95,12 @@ abstract class Model implements IModel
         $sql = "INSERT INTO `{$table_name}` ({$columns}) VALUES ({$placeholders})";
 
         $this->db->execute($sql, $params);
-//        $this->id = $this->db->lastInsertId();
-//        var_dump($this->id);
     }
 
-    public function update()
+    /**
+     * Updates row values in a database.
+     */
+    private function update()
     {
         $set_string = '';
         $params = [];
