@@ -3,10 +3,10 @@
 namespace app\interfaces;
 
 /**
- * Interface IModel
+ * Interface IDbModel
  * @package app\interfaces
  */
-interface IModel
+interface IDbModel
 {
     public static function getOne(int $id);
 

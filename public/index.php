@@ -7,13 +7,12 @@ use \app\services\Autoloader;
 
 spl_autoload_register([new Autoloader(), 'loadClass']);
 
+$controller_name = @$_GET['c'] ?: DEFAULT_CONTROLLER;
+$action = @$_GET['a'];
 
-$product = \app\models\Product::getOne(7);
-//$product = new \app\models\Product();
-var_dump($product);
+$controller_class = CONTROLLERS_NAMESPACE . '\\'. ucfirst($controller_name) . 'Controller';
 
-//$product->properties['name'] = 'name1';
-//$product->properties['price'] = 10;
-$product->properties['description'] = 'desc1';
-
-$product->delete();
+if (class_exists($controller_class)) {
+    $controller = new $controller_class;
+    $controller->run($action);
+}

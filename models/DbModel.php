@@ -2,14 +2,14 @@
 
 namespace app\models;
 
-use app\interfaces\IModel;
+use app\interfaces\IDbModel;
 use app\services\Db;
 
 /**
- * Class Model - an abstract class, a parent. Contains methods creating objects and changing a database.
+ * Class DbModel - an abstract class, a parent. Contains methods creating objects and changing a database.
  * @package app\models
  */
-abstract class Model implements IModel
+abstract class DbModel implements IDbModel
 {
     protected $db;
 
@@ -60,10 +60,8 @@ abstract class Model implements IModel
     {
         if ($this->id === '') {
             $this->insert();
-            echo 'insert';
         } else {
             $this->update();
-            echo 'update';
         }
     }
 
@@ -129,4 +127,8 @@ abstract class Model implements IModel
         $this->db->execute($sql, $params);
     }
 
+    protected function setOldProperties()
+    {
+        $this->old_properties = $this->properties;
+    }
 }
