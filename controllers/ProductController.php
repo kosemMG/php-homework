@@ -8,36 +8,17 @@ use app\models\Product;
  * Class ProductController
  * @package app\controllers
  */
-class ProductController
+class ProductController extends Controller
 {
-    private $action;
-    private $default_action = 'index';
-
-    private function actionIndex()
+    protected function actionIndex()
     {
         echo 'catalog';
     }
 
-    private function actionCard()
+    protected function actionCard()
     {
         $id = $_GET['id'];
         $product = Product::getOne($id);
-        var_dump($product);
-    }
-
-    /**
-     * Runs passed action.
-     * @param null $action
-     */
-    public function run($action = null)
-    {
-        $this->action = $action ?: $this->default_action;
-        $method = 'action' . ucfirst($this->action);
-
-        if (method_exists($this, $method)) {
-            $this->$method();
-        } else {
-            echo '404';
-        }
+        echo $this->render('card', ['product' => $product]);
     }
 }
