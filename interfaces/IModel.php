@@ -2,12 +2,15 @@
 
 namespace app\interfaces;
 
-
+/**
+ * Interface IModel
+ * @package app\interfaces
+ */
 interface IModel
 {
-    function getOne(int $id);
+    public static function getOne(int $id);
 
-    function getAll();
+    public static function getAll();
 
-    function getTableName() : string;
+    public static function getTableName() : string;
 }

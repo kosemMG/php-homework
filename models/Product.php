@@ -2,16 +2,58 @@
 
 namespace app\models;
 
-class Product extends  Model
+/**
+ * Class Product
+ * @package app\models
+ */
+class Product extends Model
 {
-    public $id;
-    public $name;
-    public $description;
-    public $price;
-    public $vendor_id;
-    public $image_path;
+    public $properties = [
+        'id' => '',
+        'name' => '',
+        'description' => '',
+        'price' => '',
+        'vendor_id' => '',
+        'image_path' => ''
+    ];
 
-    public function getTableName() : string
+    public $old_properties = [
+        'id' => '',
+        'name' => '',
+        'description' => '',
+        'price' => '',
+        'vendor_id' => '',
+        'image_path' => ''
+    ];
+
+    /**
+     * @param $name
+     * @param $value
+     */
+    public function __set($name, $value)
+    {
+        if (isset($this->properties[$name])) {
+            $this->properties[$name] = $value;
+            $this->old_properties[$name] = $value;
+        }
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if (isset($this->properties[$name])) {
+            return $this->properties[$name];
+        }
+    }
+
+    /**
+     * Returns 'products' the name of products table.
+     * @return string
+     */
+    public static function getTableName(): string
     {
         return 'products';
     }

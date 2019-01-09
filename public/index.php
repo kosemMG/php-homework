@@ -4,15 +4,16 @@ include $_SERVER['DOCUMENT_ROOT'] . "/../config/main.php";
 include ROOT_DIR . "services/Autoloader.php";
 
 use \app\services\Autoloader;
-use \app\models;
 
 spl_autoload_register([new Autoloader(), 'loadClass']);
 
-$product = new models\Product();
-$user = new models\User();
-$order = new models\Order();
-$feedback = new models\Feedback();
+
+$product = \app\models\Product::getOne(3);
+//$product = new \app\models\Product();
 var_dump($product);
-var_dump($user);
-var_dump($order);
-var_dump($feedback);
+
+//$product->properties['name'] = 'name1';
+//$product->properties['price'] = 10;
+//$product->properties['description'] = 'desc1';
+
+//$product->delete();
