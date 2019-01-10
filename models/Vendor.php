@@ -19,6 +19,15 @@ class Vendor extends Model
     ];
 
     /**
+     * Vendor constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->old_properties = $this->properties;
+    }
+
+    /**
      * @param $name
      * @param $value
      */

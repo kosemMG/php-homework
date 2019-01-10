@@ -27,6 +27,15 @@ class Product extends Model
     ];
 
     /**
+     * Product constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->old_properties = $this->properties;
+    }
+
+    /**
      * @param $name
      * @param $value
      */
@@ -34,7 +43,7 @@ class Product extends Model
     {
         if (isset($this->properties[$name])) {
             $this->properties[$name] = $value;
-            $this->old_properties[$name] = $value;
+//            $this->old_properties[$name] = $value;
         }
     }
 
