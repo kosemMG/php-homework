@@ -95,6 +95,8 @@ abstract class Model implements IModel
         $sql = "INSERT INTO `{$table_name}` ({$columns}) VALUES ({$placeholders})";
 
         $this->db->execute($sql, $params);
+
+        $this->id = $this->db->lastInsertId();
     }
 
     /**

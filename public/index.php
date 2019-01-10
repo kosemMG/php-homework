@@ -8,12 +8,14 @@ use \app\services\Autoloader;
 spl_autoload_register([new Autoloader(), 'loadClass']);
 
 
-$product = \app\models\Product::getOne(3);
+$product8 = \app\models\Product::getOne(8);
+$product9 = \app\models\Product::getOne(9);
 //$product = new \app\models\Product();
-var_dump($product);
+//var_dump($product);
 
-//$product->properties['name'] = 'name1';
-//$product->properties['price'] = 10;
-//$product->properties['description'] = 'desc1';
+//$product->properties['name'] = 'name4';
+//$product->properties['price'] = 40;
+//$product->properties['description'] = 'desc4';
 
-//$product->delete();
+$product8->delete();
+$product9->delete();
