@@ -21,6 +21,15 @@ class Order extends DbModel
     ];
 
     /**
+     * Order constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->old_properties = $this->properties;
+    }
+
+    /**
      * @param $name
      * @param $value
      */
@@ -28,7 +37,6 @@ class Order extends DbModel
     {
         if (isset($this->properties[$name])) {
             $this->properties[$name] = $value;
-            $this->old_properties[$name] = $value;
         }
     }
 

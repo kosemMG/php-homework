@@ -19,6 +19,15 @@ class Vendor extends DbModel
     ];
 
     /**
+     * Vendor constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->old_properties = $this->properties;
+    }
+
+    /**
      * @param $name
      * @param $value
      */
@@ -26,7 +35,6 @@ class Vendor extends DbModel
     {
         if (isset($this->properties[$name])) {
             $this->properties[$name] = $value;
-            $this->old_properties[$name] = $value;
         }
     }
 
