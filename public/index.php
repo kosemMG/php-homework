@@ -20,8 +20,8 @@ $product->description = 'new description';
 //$product = new Product();
 //var_dump($product);
 
-//$product->properties['name'] = 'name4';
-//$product->properties['price'] = 40;
-//$product->properties['description'] = 'desc4';
+//$product->name = 'name4';
+//$product->price = 40;
+//$product->description = 'desc4';
 
 $product->commitChange();
