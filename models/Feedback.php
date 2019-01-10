@@ -37,7 +37,6 @@ class Feedback extends Model
     {
         if (isset($this->properties[$name])) {
             $this->properties[$name] = $value;
-            $this->old_properties[$name] = $value;
         }
     }
 
