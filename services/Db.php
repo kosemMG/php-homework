@@ -133,6 +133,10 @@ class Db implements IDb
         return true;
     }
 
+    /**
+     * Returns last ID which was inserted in a session.
+     * @return string
+     */
     public function lastInsertId()
     {
         return $this->getConnection()->lastInsertId();
