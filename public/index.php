@@ -4,16 +4,24 @@ include $_SERVER['DOCUMENT_ROOT'] . "/../config/main.php";
 include ROOT_DIR . "services/Autoloader.php";
 
 use \app\services\Autoloader;
+use app\models\Product;
 
 spl_autoload_register([new Autoloader(), 'loadClass']);
 
+// Update test
+$product = Product::getOne(3);
 
-$product = \app\models\Product::getOne(3);
-//$product = new \app\models\Product();
-var_dump($product);
+$product->name = 'new_name';
+$product->price = 400;
+$product->description = 'new description';
+//$product->properties['name'] = 'name3';
 
-//$product->properties['name'] = 'name1';
-//$product->properties['price'] = 10;
-//$product->properties['description'] = 'desc1';
+// Insert test
+//$product = new Product();
+//var_dump($product);
 
-//$product->delete();
+//$product->name = 'name4';
+//$product->price = 40;
+//$product->description = 'desc4';
+
+$product->commitChange();

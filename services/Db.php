@@ -102,7 +102,7 @@ class Db implements IDb
      */
     public function queryObject($sql, $class, $params = []) {
         $pdo_statement = $this->query($sql, $params);
-        $pdo_statement->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
+        $pdo_statement->setFetchMode(\PDO::FETCH_CLASS, $class);
 
         return $pdo_statement->fetch();
     }
@@ -116,7 +116,7 @@ class Db implements IDb
      */
     public function queryAllObjects($sql, $class, $params = []) {
         $pdo_statement = $this->query($sql, $params);
-        $pdo_statement->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
+        $pdo_statement->setFetchMode(\PDO::FETCH_CLASS, $class);
 
         return $pdo_statement->fetchAll();
     }
@@ -133,6 +133,10 @@ class Db implements IDb
         return true;
     }
 
+    /**
+     * Returns last ID which was inserted in a session.
+     * @return string
+     */
     public function lastInsertId()
     {
         return $this->getConnection()->lastInsertId();
