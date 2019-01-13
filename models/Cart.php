@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\services\Db;
+
 /**
  * Class Cart
  * @package app\models
@@ -10,18 +12,14 @@ class Cart extends Record
 {
     public $properties = [
         'id' => '',
-        'user_id' => '',
         'product_id' => '',
-        'amount' => '',
-        'status' => '',
+        'amount' => ''
     ];
 
     public $old_properties = [
         'id' => '',
-        'user_id' => '',
         'product_id' => '',
-        'amount' => '',
-        'status' => '',
+        'amount' => ''
     ];
 
     /**
@@ -56,11 +54,23 @@ class Cart extends Record
     }
 
     /**
-     * Returns 'carts' the name of carts table.
+     * Returns 'cart' the name of carts table.
      * @return string
      */
     public static function getTableName(): string
     {
-        return 'carts';
+        return 'cart';
+    }
+
+    /**
+     * Returns an array of cart products objects.
+     * @return array
+     */
+    public static function prepareCart()
+    {
+        $sql = "SELECT products.image_path, products.name, cart.amount, (products.price * cart.amount) AS price FROM  
+                products, cart WHERE cart.product_id = products.id";
+
+        return Db::getInstance()->queryAllObjects($sql, \stdClass::class);
     }
 }

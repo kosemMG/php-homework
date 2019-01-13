@@ -28,7 +28,7 @@ abstract class Record implements IRecord
     public static function getOne(int $id)
     {
         $table_name = static::getTableName();
-        $sql = "SELECT * FROM {$table_name} WHERE id = :id";
+        $sql = "SELECT * FROM `{$table_name}` WHERE id = :id";
         return Db::getInstance()->queryObject($sql, get_called_class(), [':id' => $id]);
     }
 
@@ -38,7 +38,7 @@ abstract class Record implements IRecord
     public static function getAll()
     {
         $table_name = static::getTableName();
-        $sql = "SELECT * FROM {$table_name}";
+        $sql = "SELECT * FROM `{$table_name}`";
         return Db::getInstance()->queryAllObjects($sql, get_called_class());
     }
 
