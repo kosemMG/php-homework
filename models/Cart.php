@@ -73,4 +73,27 @@ class Cart extends Record
 
         return Db::getInstance()->queryAllObjects($sql, \stdClass::class);
     }
+
+    /**
+     * Adds a new product to the cart.
+     */
+    public static function addToCart()
+    {
+        $id = $_GET['id'];
+        $product = Product::getOne($id);
+        $cart_products = Cart::getAll();
+
+        foreach ($cart_products as $cart_product) {
+            if ($cart_product->product_id === $product->id) {
+                $cart_product->amount++;
+                $cart_product->commitChange();
+                return;
+            }
+        }
+
+        $cart_product = new Cart();
+        $cart_product->product_id = $product->id;
+        $cart_product->amount = 1;
+        $cart_product->commitChange();
+    }
 }

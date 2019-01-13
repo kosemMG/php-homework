@@ -6,6 +6,9 @@ use app\models\Cart;
 
 class CartController extends Controller
 {
+    /**
+     * Renders a cart.
+     */
     protected function actionIndex()
     {
         $cart = Cart::prepareCart();
@@ -13,6 +16,11 @@ class CartController extends Controller
     }
 
     protected function actionAdd()
+    {
+        Cart::addToCart();
+    }
+
+    protected function actionRemove()
     {
 
     }
