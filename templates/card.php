@@ -4,5 +4,5 @@
  */
 ?>
 
-<h1><?=$product->properties['name']?></h1>
-<p><?=$product->properties['description']?></p>
+<h1><?=$product->name?></h1>
+<p><?=$product->description?></p>

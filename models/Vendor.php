@@ -6,7 +6,7 @@ namespace app\models;
  * Class Vendor
  * @package app\models
  */
-class Vendor extends DbModel
+class Vendor extends Record
 {
     public $properties = [
         'id' => '',

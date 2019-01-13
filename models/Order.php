@@ -6,7 +6,7 @@ namespace app\models;
  * Class Order
  * @package app\models
  */
-class Order extends DbModel
+class Order extends Record
 {
     public $properties = [
         'id' => '',

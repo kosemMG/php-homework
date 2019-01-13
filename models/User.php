@@ -6,7 +6,7 @@ namespace app\models;
  * Class User
  * @package app\models
  */
-class User extends DbModel
+class User extends Record
 {
     public $properties = [
         'id' => '',

@@ -6,7 +6,7 @@ namespace app\models;
  * Class Cart
  * @package app\models
  */
-class Cart extends DbModel
+class Cart extends Record
 {
     public $properties = [
         'id' => '',

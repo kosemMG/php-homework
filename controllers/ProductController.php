@@ -10,11 +10,18 @@ use app\models\Product;
  */
 class ProductController extends Controller
 {
+    /**
+     * Renders a catalog page.
+     */
     protected function actionIndex()
     {
-        echo 'catalog';
+        $products = Product::getAll();
+        echo $this->render('catalog', ['products' => $products]);
     }
 
+    /**
+     * Renders a card page.
+     */
     protected function actionCard()
     {
         $id = $_GET['id'];

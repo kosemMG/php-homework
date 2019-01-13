@@ -2,14 +2,14 @@
 
 namespace app\models;
 
-use app\interfaces\IDbModel;
+use app\interfaces\IRecord;
 use app\services\Db;
 
 /**
- * Class DbModel - an abstract class, a parent. Contains methods creating objects and changing a database.
+ * Class Record - an abstract class, a parent. Contains methods creating objects and changing a database.
  * @package app\models
  */
-abstract class DbModel implements IDbModel
+abstract class Record implements IRecord
 {
     protected $db;
 
@@ -127,10 +127,5 @@ abstract class DbModel implements IDbModel
         $sql = "UPDATE `{$table_name}` SET {$set_string} WHERE id = :id";
 
         $this->db->execute($sql, $params);
-    }
-
-    protected function setOldProperties()
-    {
-        $this->old_properties = $this->properties;
     }
 }

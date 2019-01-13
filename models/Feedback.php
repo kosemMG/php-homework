@@ -6,7 +6,7 @@ namespace app\models;
  * Class Feedback
  * @package app\models
  */
-class Feedback extends DbModel
+class Feedback extends Record
 {
     public $properties = [
         'id' => '',

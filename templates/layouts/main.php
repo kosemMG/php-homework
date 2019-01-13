@@ -8,10 +8,10 @@
     <title>Document</title>
 </head>
 <body>
-<div class="header">header</div>
+<div class="header">This is a header.</div>
 <div class="content">
     <?=$content?>
 </div>
-<div class="footer">footer</div>
+<div class="footer">This is a footer.</div>
 </body>
 </html>
