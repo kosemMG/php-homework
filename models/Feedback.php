@@ -52,7 +52,7 @@ class Feedback extends Record
     }
 
     /**
-     * Returns 'feedbacks' the name of feedbacks table.
+     * Returns 'feedbacks' the name of a feedbacks table.
      * @return string
      */
     public static function getTableName(): string

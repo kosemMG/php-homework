@@ -52,7 +52,7 @@ class Order extends Record
     }
 
     /**
-     * Returns 'orders' the name of orders table.
+     * Returns 'orders' the name of an orders table.
      * @return string
      */
     public static function getTableName() : string

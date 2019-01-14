@@ -50,7 +50,7 @@ class Vendor extends Record
     }
 
     /**
-     * Returns 'vendors' the name of vendors table.
+     * Returns 'vendors' the name of a vendors table.
      * @return string
      */
     public static function getTableName(): string

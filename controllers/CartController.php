@@ -11,7 +11,7 @@ class CartController extends Controller
      */
     protected function actionIndex()
     {
-        $cart = Cart::prepareCart();
+        $cart = Cart::getCart();
         echo $this->render('cart', ['cart' => $cart]);
     }
 

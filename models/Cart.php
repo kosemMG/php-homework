@@ -54,7 +54,7 @@ class Cart extends Record
     }
 
     /**
-     * Returns 'cart' the name of carts table.
+     * Returns 'cart' the name of a cart table.
      * @return string
      */
     public static function getTableName(): string
@@ -66,7 +66,7 @@ class Cart extends Record
      * Returns an array of cart products objects.
      * @return array
      */
-    public static function prepareCart()
+    public static function getCart()
     {
         $sql = "SELECT products.image_path, products.name, cart.amount, (products.price * cart.amount) AS price FROM  
                 products, cart WHERE cart.product_id = products.id";
