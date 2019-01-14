@@ -87,6 +87,7 @@ class Cart extends Record
             if ($cart_product->product_id === $product->id) {
                 $cart_product->amount++;
                 $cart_product->commitChange();
+                header('Location: /');
                 return;
             }
         }
@@ -95,5 +96,6 @@ class Cart extends Record
         $cart_product->product_id = $product->id;
         $cart_product->amount = 1;
         $cart_product->commitChange();
+        header('Location: /');
     }
 }

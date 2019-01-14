@@ -2,19 +2,27 @@
 
 namespace app\controllers;
 
+use app\interfaces\IRenderer;
+use app\services\TemplateRenderer;
+
 /**
  * Class Controller - parent for all controllers
  * @package app\controllers
  */
 abstract class Controller
 {
-    private $file_extension = '.php';
-
     private $action;
     private $default_action = 'index';
 
     private $layout = 'main';
     private $use_layout = true;
+
+    private $renderer;
+
+    public function __construct(IRenderer $renderer)
+    {
+        $this->renderer = $renderer;
+    }
 
     /**
      * Runs passed action.
@@ -58,10 +66,6 @@ abstract class Controller
      */
     private function renderTemplate($template, $params = [])
     {
-        ob_start();
-        extract($params);
-        $template_path = TEMPLATES_DIR . $template . $this->file_extension;
-        include $template_path;
-        return ob_get_clean();
+        return $this->renderer->render($template, $params);
     }
 }
