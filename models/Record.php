@@ -59,10 +59,8 @@ abstract class Record implements IRecord
     public function commitChange()
     {
         if ($this->id === '') {
-            echo 'insert';
             $this->insert();
         } else {
-            echo 'update';
             $this->update();
         }
     }
