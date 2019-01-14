@@ -60,7 +60,9 @@ abstract class Controller
     {
         ob_start();
         extract($params);
-        $template_path = TEMPLATES_DIR . $template . $this->file_extension;
+        $controller_name = @$_GET['c'] ?: DEFAULT_CONTROLLER;
+        $subfolder = ucfirst($controller_name);
+        $template_path = TEMPLATES_DIR . $subfolder . '/' . $template . $this->file_extension;
         include $template_path;
         return ob_get_clean();
     }
