@@ -58,7 +58,7 @@ class Product extends Record
     }
 
     /**
-     * Returns 'products' the name of products table.
+     * Returns 'products' the name of a products table.
      * @return string
      */
     public static function getTableName(): string

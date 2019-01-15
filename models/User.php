@@ -56,7 +56,7 @@ class User extends Record
     }
 
     /**
-     * Returns 'users' the name of users table.
+     * Returns 'users' the name of a users table.
      * @return string
      */
     public static function getTableName() : string

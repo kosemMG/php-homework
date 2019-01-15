@@ -54,7 +54,7 @@ class Cart extends Record
     }
 
     /**
-     * Returns 'cart' the name of carts table.
+     * Returns 'cart' the name of a cart table.
      * @return string
      */
     public static function getTableName(): string
