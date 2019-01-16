@@ -1,6 +1,6 @@
 <?php
 
-namespace app\services;
+namespace app\services\renderers;
 
 use app\interfaces\IRenderer;
 

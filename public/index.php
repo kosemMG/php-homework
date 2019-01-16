@@ -4,7 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/../config/main.php";
 include ROOT_DIR . "services/Autoloader.php";
 
 use \app\services\Autoloader;
-use app\services\TemplateRenderer;
+use app\services\renderers\TemplateRenderer;
 
 spl_autoload_register([new Autoloader(), 'loadClass']);
 
