@@ -1,0 +1,13 @@
+{
+    "name": "moshe/php-homework",
+    "type": "project",
+    "authors": [
+        {
+            "name": "kosemMG",
+            "email": "glbrgm@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^2.6"
+    }
+}
