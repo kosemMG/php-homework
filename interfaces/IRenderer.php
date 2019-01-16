@@ -11,8 +11,9 @@ interface IRenderer
     /**
      * Renders a template, filling it with passed parameters.
      * @param $template
+     * @param $class_name
      * @param array $params
      * @return mixed
      */
-    public function render($template, $params = []);
+    public function render($template, $class_name, $params = []);
 }

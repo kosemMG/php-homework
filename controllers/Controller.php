@@ -66,6 +66,6 @@ abstract class Controller
      */
     private function renderTemplate($template, $params = [])
     {
-        return $this->renderer->render($template, $params);
+        return $this->renderer->render($template, get_called_class(), $params);
     }
 }
