@@ -9,19 +9,18 @@ use app\models\Product;
 spl_autoload_register([new Autoloader(), 'loadClass']);
 
 // Update test
-$product = Product::getOne(3);
-
-$product->name = 'new_name';
-$product->price = 400;
-$product->description = 'new description';
+//$product = Product::getOne(3);
+//
+//$product->name = 'new_name';
+//$product->price = 400;
+//$product->description = 'new description';
 //$product->properties['name'] = 'name3';
 
 // Insert test
-//$product = new Product();
-//var_dump($product);
+$product = new Product();
 
-//$product->name = 'name4';
-//$product->price = 40;
-//$product->description = 'desc4';
+$product->name = 'name4';
+$product->price = 40;
+$product->description = 'desc4';
 
 $product->commitChange();

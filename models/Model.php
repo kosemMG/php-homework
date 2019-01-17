@@ -76,9 +76,9 @@ abstract class Model implements IModel
         $params = [];
 
         foreach ($this->properties as $key => $value) {
-            if ($key === 'id') {
-                continue;
-            }
+//            if ($key === 'id') {
+//                continue;
+//            }
 
             if ($value === '') {
                 $value = null;
