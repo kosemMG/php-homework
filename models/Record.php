@@ -82,10 +82,6 @@ abstract class Record implements IRecord
         $params = [];
 
         foreach ($this->properties as $key => $value) {
-            if ($key === 'id') {
-                continue;
-            }
-
             if ($value === '') {
                 $value = null;
             }
