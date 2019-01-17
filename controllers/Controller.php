@@ -15,7 +15,7 @@ abstract class Controller
     private $default_action = 'index';
 
     private $layout = 'main';
-    private $use_layout = false;
+    private $use_layout = true;
 
     private $renderer;
 
@@ -46,7 +46,7 @@ abstract class Controller
      * @param array $params
      * @return false|string
      */
-    protected function render($template, $params = [])
+    protected function render(string $template, array $params = [])
     {
         if ($this->use_layout) {
             $content = $this->renderTemplate($template, $params);
@@ -64,7 +64,7 @@ abstract class Controller
      * @param array $params
      * @return false|string
      */
-    private function renderTemplate($template, $params = [])
+    private function renderTemplate(string $template, array $params = [])
     {
         return $this->renderer->render($template, get_called_class(), $params);
     }

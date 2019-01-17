@@ -6,7 +6,7 @@ use app\interfaces\IRenderer;
 
 /**
  * Class TemplateRenderer
- * @package app\services
+ * @package app\services\renderers
  */
 class TemplateRenderer implements IRenderer
 {
@@ -15,11 +15,11 @@ class TemplateRenderer implements IRenderer
     /**
      * Renders a template, filling it with passed parameters.
      * @param string $template
-     * @param string $class_name
+     * @param string|null $class_name
      * @param array $params
      * @return false|mixed|string
      */
-    public function render($template, $class_name, $params = [])
+    public function render(string $template, string $class_name = null, array $params = [])
     {
         ob_start();
         extract($params);
@@ -34,7 +34,7 @@ class TemplateRenderer implements IRenderer
      * @param string $class_name
      * @return bool|string
      */
-    private function createSubdir($class_name)
+    private function createSubdir(string $class_name)
     {
         return substr(strrchr($class_name, '\\'), 1, -10);
     }
