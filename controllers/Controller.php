@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\interfaces\IRenderer;
-use app\services\renderers\TemplateRenderer;
 
 /**
  * Class Controller - parent for all controllers
@@ -15,7 +14,6 @@ abstract class Controller
     private $default_action = 'index';
 
     private $layout = 'main';
-    private $use_layout = true;
 
     private $renderer;
 
@@ -44,11 +42,12 @@ abstract class Controller
      * Renders a page, using particular templates.
      * @param string $template
      * @param array $params
+     * @param bool $use_layout
      * @return false|string
      */
-    protected function render(string $template, array $params = [])
+    protected function render(string $template, array $params = [], bool $use_layout = true)
     {
-        if ($this->use_layout) {
+        if ($use_layout) {
             $content = $this->renderTemplate($template, $params);
             $result = $this->renderTemplate(LAYOUTS_DIR . $this->layout, ['content' => $content]);
 
