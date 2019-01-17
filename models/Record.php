@@ -21,6 +21,9 @@ abstract class Record implements IRecord
         $this->db = static::getDb();
     }
 
+    /**
+     * @return Db
+     */
     private static function getDb()
     {
         return Db::getInstance();
@@ -28,7 +31,7 @@ abstract class Record implements IRecord
 
     /**
      * @param int $id
-     * @return static
+     * @return object
      */
     public static function getOne(int $id)
     {

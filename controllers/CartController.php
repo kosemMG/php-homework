@@ -11,14 +11,18 @@ class CartController extends Controller
      */
     protected function actionIndex()
     {
-        $cart = Cart::prepareCart();
+        $cart = Cart::getCart();
         echo $this->render('cart', ['cart' => $cart]);
     }
 
+    /**
+     * Adds a product to the cart.
+     */
     protected function actionAdd()
     {
         Cart::addToCart();
     }
+
 
     protected function actionRemove()
     {

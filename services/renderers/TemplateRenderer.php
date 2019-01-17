@@ -14,7 +14,8 @@ class TemplateRenderer implements IRenderer
 
     /**
      * Renders a template, filling it with passed parameters.
-     * @param $template
+     * @param string $template
+     * @param string $class_name
      * @param array $params
      * @return false|mixed|string
      */
@@ -30,7 +31,7 @@ class TemplateRenderer implements IRenderer
 
     /**
      * Returns a template subdirectory.
-     * @param $class_name
+     * @param string $class_name
      * @return bool|string
      */
     private function createSubdir($class_name)

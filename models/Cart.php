@@ -5,7 +5,7 @@ namespace app\models;
 use app\services\Db;
 
 /**
- * Class Cart
+ * Class Cart includes all cart methods and properties.
  * @package app\models
  */
 class Cart extends Record
@@ -32,8 +32,8 @@ class Cart extends Record
     }
 
     /**
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param string|int|float $value
      */
     public function __set($name, $value)
     {
@@ -43,7 +43,7 @@ class Cart extends Record
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     public function __get($name)
@@ -66,7 +66,7 @@ class Cart extends Record
      * Returns an array of cart products objects.
      * @return array
      */
-    public static function prepareCart()
+    public static function getCart()
     {
         $sql = "SELECT products.image_path, products.name, cart.amount, (products.price * cart.amount) AS price FROM  
                 products, cart WHERE cart.product_id = products.id";
@@ -75,7 +75,7 @@ class Cart extends Record
     }
 
     /**
-     * Adds a new product to the cart.
+     * Adds a new product to the cart (in DB).
      */
     public static function addToCart()
     {

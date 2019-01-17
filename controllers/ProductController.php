@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\Product;
 
 /**
- * Class ProductController
+ * Class ProductController manages all product actions.
  * @package app\controllers
  */
 class ProductController extends Controller

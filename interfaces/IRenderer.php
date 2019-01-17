@@ -15,5 +15,5 @@ interface IRenderer
      * @param array $params
      * @return mixed
      */
-    public function render($template, $class_name, $params = []);
+    public function render(string $template, string $class_name, array $params = []);
 }

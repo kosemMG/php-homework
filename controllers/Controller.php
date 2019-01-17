@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\interfaces\IRenderer;
-use app\services\TemplateRenderer;
+use app\services\renderers\TemplateRenderer;
 
 /**
  * Class Controller - parent for all controllers
@@ -15,7 +15,7 @@ abstract class Controller
     private $default_action = 'index';
 
     private $layout = 'main';
-    private $use_layout = true;
+    private $use_layout = false;
 
     private $renderer;
 
@@ -26,9 +26,9 @@ abstract class Controller
 
     /**
      * Runs passed action.
-     * @param null $action
+     * @param null|string $action
      */
-    public function run($action = null)
+    public function run(string $action = null)
     {
         $this->action = $action ?: $this->default_action;
         $method = 'action' . ucfirst($this->action);
@@ -42,7 +42,7 @@ abstract class Controller
 
     /**
      * Renders a page, using particular templates.
-     * @param $template
+     * @param string $template
      * @param array $params
      * @return false|string
      */
@@ -60,7 +60,7 @@ abstract class Controller
 
     /**
      * Renders a template, filling it with passed parameters.
-     * @param $template
+     * @param string $template
      * @param array $params
      * @return false|string
      */

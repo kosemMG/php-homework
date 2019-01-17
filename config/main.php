@@ -4,6 +4,8 @@
 define('ROOT_DIR', $_SERVER['DOCUMENT_ROOT'] . "/../");
 define('TEMPLATES_DIR', ROOT_DIR . 'templates/');
 define('LAYOUTS_DIR', '../layouts/');
+define('VENDOR_DIR', ROOT_DIR . 'vendor/');
+define('TWIG_DIR', TEMPLATES_DIR . 'twig');
 
 // Configuration constants.
 define('DEFAULT_CONTROLLER', 'product');
