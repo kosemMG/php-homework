@@ -4,9 +4,12 @@ include $_SERVER['DOCUMENT_ROOT'] . "/../config/main.php";
 include VENDOR_DIR . 'autoload.php';
 
 use app\services\renderers\TemplateRenderer;
+use app\services\Request;
 
-$controller_name = $_GET['c'] ?: DEFAULT_CONTROLLER;
-$action = $_GET['a'];
+$request = new Request();
+
+$controller_name = $request->getControllerName() ?: DEFAULT_CONTROLLER;
+$action = $request->getActionName();
 
 $controller_class = CONTROLLERS_NAMESPACE . ucfirst($controller_name) . 'Controller';
 
