@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Cart;
+use app\models\repositories\CartRepository;
 
 class CartController extends Controller
 {
@@ -11,7 +12,7 @@ class CartController extends Controller
      */
     protected function actionIndex()
     {
-        $cart = Cart::getCart();
+        $cart = (new CartRepository())->getCart();
         echo $this->render('cart', ['cart' => $cart]);
     }
 
@@ -20,7 +21,7 @@ class CartController extends Controller
      */
     protected function actionAdd()
     {
-        Cart::addToCart();
+        (new CartRepository())->addToCart();
     }
 
 

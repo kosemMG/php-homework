@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Product;
+use app\models\repositories\ProductRepository;
 
 /**
  * Class ProductController manages all product actions.
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     protected function actionIndex()
     {
-        $products = Product::getAll();
+        $products = (new ProductRepository())->getAll();
         echo $this->render('catalog', ['products' => $products]);
     }
 
@@ -25,7 +26,7 @@ class ProductController extends Controller
     protected function actionCard()
     {
         $id = $_GET['id'];
-        $product = Product::getOne($id);
-        echo $this->render('card', ['product' => $product], false);
+        $product = (new ProductRepository())->getOne($id);
+        echo $this->render('card', ['product' => $product]);
     }
 }

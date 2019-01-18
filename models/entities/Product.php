@@ -1,12 +1,12 @@
 <?php
 
-namespace app\models;
+namespace app\models\entities;
 
 /**
  * Class Product
  * @package app\models
  */
-class Product extends Record
+class Product extends DataEntity
 {
     public $properties = [
         'id' => '',
@@ -31,7 +31,6 @@ class Product extends Record
      */
     public function __construct()
     {
-        parent::__construct();
         $this->old_properties = $this->properties;
     }
 
@@ -55,14 +54,5 @@ class Product extends Record
         if (isset($this->properties[$name])) {
             return $this->properties[$name];
         }
-    }
-
-    /**
-     * Returns 'products' the name of a products table.
-     * @return string
-     */
-    public static function getTableName(): string
-    {
-        return 'products';
     }
 }
