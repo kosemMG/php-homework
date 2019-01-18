@@ -5,6 +5,10 @@ namespace app\models\repositories;
 use app\models\entities\DataEntity;
 use app\services\Db;
 
+/**
+ * Class Repository contains methods for reading from and writing into a database.
+ * @package app\models\repositories
+ */
 abstract class Repository
 {
     protected $db;

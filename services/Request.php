@@ -2,12 +2,16 @@
 
 namespace app\services;
 
-
+/**
+ * Class Request contains methods for reading a URL.
+ * @package app\services
+ */
 class Request
 {
     private $controller_name;
     private $action_name;
     private $params;
+
     private $request_string;
 
     /**
@@ -19,6 +23,9 @@ class Request
         $this->parseRequest();
     }
 
+    /**
+     * Parse a URL by regular expression.
+     */
     private function parseRequest()
     {
         $pattern = "#(?P<controller>\w+)[/]?(?P<action>\w+)?[/]?[?]?(?P<params>.*)#ui";
@@ -31,25 +38,28 @@ class Request
     }
 
     /**
-     * @return mixed
+     * Returns a controller name.
+     * @return string
      */
-    public function getControllerName()
+    public function getControllerName(): string
     {
         return $this->controller_name;
     }
 
     /**
-     * @return mixed
+     * Returns an action name.
+     * @return string
      */
-    public function getActionName()
+    public function getActionName(): string
     {
         return $this->action_name;
     }
 
     /**
-     * @return mixed
+     * Returns an array of parameters.
+     * @return array
      */
-    public function getParams()
+    public function getParams(): array
     {
         return $this->params;
     }

@@ -3,7 +3,7 @@
 namespace app\models\entities;
 
 /**
- * Class Product
+ * Class Product contains products methods and properties.
  * @package app\models
  */
 class Product extends DataEntity

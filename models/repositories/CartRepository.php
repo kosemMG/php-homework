@@ -5,6 +5,10 @@ namespace app\models\repositories;
 
 use app\models\Cart;
 
+/**
+ * Class CartRepository contains methods working with the database cart table.
+ * @package app\models\repositories
+ */
 class CartRepository extends Repository
 {
     /**

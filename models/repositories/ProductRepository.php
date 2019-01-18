@@ -5,6 +5,10 @@ namespace app\models\repositories;
 
 use app\models\entities\Product;
 
+/**
+ * Class ProductRepository contains methods for working with the products database table.
+ * @package app\models\repositories
+ */
 class ProductRepository extends Repository
 {
     /**

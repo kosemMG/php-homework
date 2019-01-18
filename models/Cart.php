@@ -6,7 +6,7 @@ use app\models\entities\DataEntity;
 use app\services\Db;
 
 /**
- * Class Cart includes all cart methods and properties.
+ * Class Cart contains cart methods and properties.
  * @package app\models
  */
 class Cart extends DataEntity
