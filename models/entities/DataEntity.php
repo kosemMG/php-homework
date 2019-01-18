@@ -2,7 +2,7 @@
 
 namespace app\models\entities;
 
-class DataEntity
+abstract class DataEntity
 {
 
 }
