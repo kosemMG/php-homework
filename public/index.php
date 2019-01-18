@@ -6,8 +6,8 @@ include VENDOR_DIR . 'autoload.php';
 use app\services\renderers\TemplateRenderer;
 use \app\services\renderers\TwigRenderer;
 
-$controller_name = @$_GET['c'] ?: DEFAULT_CONTROLLER;
-$action = @$_GET['a'];
+$controller_name = $_GET['c'] ?: DEFAULT_CONTROLLER;
+$action = $_GET['a'];
 
 $controller_class = CONTROLLERS_NAMESPACE . ucfirst($controller_name) . 'Controller';
 
