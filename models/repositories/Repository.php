@@ -58,6 +58,17 @@ abstract class Repository
     }
 
     /**
+     * Clears a table.
+     * @return bool
+     */
+    public function clear()
+    {
+        $table_name = $this->getTableName();
+        $sql = "TRUNCATE TABLE `{$table_name}`";
+        return $this->db->execute($sql);
+    }
+
+    /**
      * Saves changes in a database.
      * @param DataEntity $entity
      */

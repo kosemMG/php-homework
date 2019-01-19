@@ -24,9 +24,27 @@ class CartController extends Controller
         (new CartRepository())->addToCart();
     }
 
-
+    /**
+     * Removes a product from the cart.
+     */
     protected function actionRemove()
     {
+        (new CartRepository())->remove();
+    }
 
+    /**
+     * Reduces the amount of items of a product in the cart.
+     */
+    protected function actionReduce()
+    {
+        (new CartRepository())->removeOne();
+    }
+
+    /**
+     * Clears the cart.
+     */
+    protected function actionClear()
+    {
+        (new CartRepository())->clearCart();
     }
 }

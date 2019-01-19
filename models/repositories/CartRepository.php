@@ -35,7 +35,7 @@ class CartRepository extends Repository
      */
     public function getCart()
     {
-        $sql = "SELECT products.image_path, products.name, cart.amount, (products.price * cart.amount) AS price FROM  
+        $sql = "SELECT cart.product_id, products.image_path, products.name, cart.amount, (products.price * cart.amount) AS price FROM  
                 products, cart WHERE cart.product_id = products.id";
 
         return $this->db->queryAllObjects($sql, \stdClass::class);
@@ -64,5 +64,51 @@ class CartRepository extends Repository
 
         $this->commitChange($product);
         header('Location: /');
+    }
+
+    /**
+     * Removes an item from a cart by reducing amount column.
+     */
+    public function removeOne()
+    {
+        $id = $_GET['id'];
+
+        $cart_product = $this->getOne($id, 'product_id');
+
+        if ($cart_product->amount > 1) {
+            $product = new Cart();
+            $product->product_id = $id;
+            $product->id = $cart_product->id;
+            $product->amount = $cart_product->amount - 1;
+            $this->commitChange($product);
+            header('Location: /cart');
+        } else {
+            $this->remove();
+        }
+    }
+
+    /**
+     * Removes a whole record from a 'cart' table.
+     */
+    public function remove()
+    {
+        $id = $_GET['id'];
+
+        $product = new Cart();
+        $product->product_id = $id;
+        $cart_product = $this->getOne($id, 'product_id');
+        $product->id = $cart_product->id;
+
+        $this->delete($product);
+        header('Location: /cart');
+    }
+
+    /**
+     * Removes all the records from a 'cart' table.
+     */
+    public function clearCart()
+    {
+        $this->clear();
+        header('Location: /cart');
     }
 }
