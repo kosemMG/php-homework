@@ -51,19 +51,17 @@ class CartRepository extends Repository
 
         $product = new Cart();
         $product->product_id = $id;
+        $product->amount = 1;
 
         foreach ($cart_products as $cart_product) {
             if ($cart_product->product_id === $id) {
                 $cart_product = $this->getOne($id, 'product_id');
                 $product->id = $cart_product->id;
                 $product->amount = $cart_product->amount + 1;
-                $this->update($product);
-                header('Location: /');
-                return;
+                break;
             }
         }
 
-        $product->amount = 1;
         $this->commitChange($product);
         header('Location: /');
     }

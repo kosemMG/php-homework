@@ -14,9 +14,14 @@ abstract class Controller
     private $default_action = 'index';
 
     private $layout = 'main';
+    private $use_layout = true;
 
     private $renderer;
 
+    /**
+     * Controller constructor.
+     * @param IRenderer $renderer
+     */
     public function __construct(IRenderer $renderer)
     {
         $this->renderer = $renderer;
@@ -42,12 +47,11 @@ abstract class Controller
      * Renders a page, using particular templates.
      * @param string $template
      * @param array $params
-     * @param bool $use_layout
      * @return false|string
      */
-    protected function render(string $template, array $params = [], bool $use_layout = true)
+    protected function render(string $template, array $params = [])
     {
-        if ($use_layout) {
+        if ($this->use_layout) {
             $content = $this->renderTemplate($template, $params);
             $result = $this->renderTemplate(LAYOUTS_DIR . $this->layout, ['content' => $content]);
 
