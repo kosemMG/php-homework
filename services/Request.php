@@ -39,18 +39,18 @@ class Request
 
     /**
      * Returns a controller name.
-     * @return string
+     * @return string|null
      */
-    public function getControllerName(): string
+    public function getControllerName()
     {
         return $this->controller_name;
     }
 
     /**
      * Returns an action name.
-     * @return string
+     * @return string|null
      */
-    public function getActionName(): string
+    public function getActionName()
     {
         return $this->action_name;
     }
@@ -59,7 +59,7 @@ class Request
      * Returns an array of parameters.
      * @return array
      */
-    public function getParams(): array
+    public function getParams()
     {
         return $this->params;
     }

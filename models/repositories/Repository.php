@@ -22,15 +22,16 @@ abstract class Repository
     }
 
     /**
-     * Creates an object from a database record.
-     * @param int $id
+     * Creates an object from a database record by assigned column.
+     * @param int $value
+     * @param string $column
      * @return object
      */
-    public function getOne(int $id)
+    public function getOne(int $value, string $column = 'id')
     {
         $table_name = $this->getTableName();
-        $sql = "SELECT * FROM `{$table_name}` WHERE id = :id";
-        return $this->db->queryObject($sql, $this->getEntityClass(), [':id' => $id]);
+        $sql = "SELECT * FROM `{$table_name}` WHERE {$column} = :{$column}";
+        return $this->db->queryObject($sql, $this->getEntityClass(), [":{$column}" => $value]);
     }
 
     /**
@@ -46,6 +47,7 @@ abstract class Repository
 
     /**
      * Deletes a row from a database.
+     * @param DataEntity $entity
      * @return bool
      */
     public function delete(DataEntity $entity)
@@ -57,6 +59,7 @@ abstract class Repository
 
     /**
      * Saves changes in a database.
+     * @param DataEntity $entity
      */
     public function commitChange(DataEntity $entity)
     {
@@ -68,9 +71,10 @@ abstract class Repository
     }
 
     /**
-     * Inserts a row to a database.
+     * Inserts a record to a database.
+     * @param DataEntity $entity
      */
-    private function insert(DataEntity $entity)
+    protected function insert(DataEntity $entity)
     {
         $columns = [];
         $params = [];
@@ -96,9 +100,10 @@ abstract class Repository
     }
 
     /**
-     * Updates row values in a database.
+     * Updates a record in a database.
+     * @param DataEntity $entity
      */
-    private function update(DataEntity $entity)
+    protected function update(DataEntity $entity)
     {
         $set_string = '';
         $params = [];
@@ -111,7 +116,7 @@ abstract class Repository
             }
         }
 
-        $params[':id'] = $this->id;
+        $params[':id'] = $entity->id;
 
         foreach ($new_properties as $key => $value) {
             if ($new_properties[$key] === end($new_properties)) {

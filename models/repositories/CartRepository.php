@@ -47,23 +47,24 @@ class CartRepository extends Repository
     public function addToCart()
     {
         $id = $_GET['id'];
-        $product = (new ProductRepository())->getOne($id);
         $cart_products = $this->getAll();
 
+        $product = new Cart();
+        $product->product_id = $id;
+
         foreach ($cart_products as $cart_product) {
-            if ($cart_product->product_id === $product->id) {
-                $cart_product = $this->getOne($product->id);
-                $cart_product->amount++;
-                $this->commitChange($cart_product);
+            if ($cart_product->product_id === $id) {
+                $cart_product = $this->getOne($id, 'product_id');
+                $product->id = $cart_product->id;
+                $product->amount = $cart_product->amount + 1;
+                $this->update($product);
                 header('Location: /');
                 return;
             }
         }
 
-        $cart_product = new Cart();
-        $cart_product->product_id = $product->id;
-        $cart_product->amount = 1;
-        $this->commitChange($cart_product);
+        $product->amount = 1;
+        $this->commitChange($product);
         header('Location: /');
     }
 }
