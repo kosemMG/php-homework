@@ -1,27 +1,31 @@
 <?php
 
-namespace app\models;
+namespace app\models\entities;
 
 /**
- * Class Order
- * @package app\models
+ * Class User contains users methods and properties.
+ * @package app\models\entities
  */
-class Order extends Record
+class User extends Entity
 {
     public $properties = [
         'id' => '',
-        'user_id' => '',
-        'message' => ''
+        'login' => '',
+        'password' => '',
+        'name' => '',
+        'email' => ''
     ];
 
     public $old_properties = [
         'id' => '',
-        'user_id' => '',
-        'cart_id' => ''
+        'login' => '',
+        'password' => '',
+        'name' => '',
+        'email' => ''
     ];
 
     /**
-     * Order constructor.
+     * User constructor.
      */
     public function __construct()
     {
@@ -52,11 +56,11 @@ class Order extends Record
     }
 
     /**
-     * Returns 'orders' the name of an orders table.
+     * Returns 'users' the name of a users table.
      * @return string
      */
     public static function getTableName() : string
     {
-        return 'orders';
+        return 'users';
     }
 }

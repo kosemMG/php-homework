@@ -2,14 +2,15 @@
 
 namespace app\models\repositories;
 
-use app\models\entities\DataEntity;
+use app\interfaces\IRepository;
+use app\models\entities\Entity;
 use app\services\Db;
 
 /**
  * Class Repository contains methods for reading from and writing into a database.
  * @package app\models\repositories
  */
-abstract class Repository
+abstract class Repository implements IRepository
 {
     protected $db;
 
@@ -42,15 +43,15 @@ abstract class Repository
     {
         $table_name = $this->getTableName();
         $sql = "SELECT * FROM `{$table_name}`";
-        return $this->db->queryAllObjects($sql, get_called_class());
+        return $this->db->queryAllObjects($sql, $this->getEntityClass());
     }
 
     /**
      * Deletes a row from a database.
-     * @param DataEntity $entity
+     * @param Entity $entity
      * @return bool
      */
-    public function delete(DataEntity $entity)
+    public function delete(Entity $entity)
     {
         $table_name = $this->getTableName();
         $sql = "DELETE FROM `{$table_name}` WHERE id = :id";
@@ -70,9 +71,9 @@ abstract class Repository
 
     /**
      * Saves changes in a database.
-     * @param DataEntity $entity
+     * @param Entity $entity
      */
-    public function commitChange(DataEntity $entity)
+    public function commitChange(Entity $entity)
     {
         if ($entity->id === '') {
             $this->insert($entity);
@@ -83,9 +84,9 @@ abstract class Repository
 
     /**
      * Inserts a record to a database.
-     * @param DataEntity $entity
+     * @param Entity $entity
      */
-    protected function insert(DataEntity $entity)
+    protected function insert(Entity $entity)
     {
         $columns = [];
         $params = [];
@@ -112,9 +113,9 @@ abstract class Repository
 
     /**
      * Updates a record in a database.
-     * @param DataEntity $entity
+     * @param Entity $entity
      */
-    protected function update(DataEntity $entity)
+    protected function update(Entity $entity)
     {
         $set_string = '';
         $params = [];

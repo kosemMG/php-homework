@@ -64,4 +64,19 @@ class Request
         return $this->params;
     }
 
+    /**
+     * Defines the request method.
+     */
+    public function getMethod()
+    {
+
+    }
+
+    /**
+     * Defines whether the request was AJAX.
+     */
+    public function isAjax()
+    {
+
+    }
 }

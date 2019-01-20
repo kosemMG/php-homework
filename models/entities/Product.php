@@ -6,7 +6,7 @@ namespace app\models\entities;
  * Class Product contains products methods and properties.
  * @package app\models
  */
-class Product extends DataEntity
+class Product extends Entity
 {
     public $properties = [
         'id' => '',

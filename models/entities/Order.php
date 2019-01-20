@@ -1,39 +1,37 @@
 <?php
 
-namespace app\models;
-
-use app\models\entities\DataEntity;
-use app\services\Db;
+namespace app\models\entities;
 
 /**
- * Class Cart contains cart methods and properties.
- * @package app\models
+ * Class Order contains orders methods and properties.
+ * @package app\models\entities
  */
-class Cart extends DataEntity
+class Order extends Entity
 {
     public $properties = [
         'id' => '',
-        'product_id' => '',
-        'amount' => ''
+        'user_id' => '',
+        'message' => ''
     ];
 
     public $old_properties = [
         'id' => '',
-        'product_id' => '',
-        'amount' => ''
+        'user_id' => '',
+        'cart_id' => ''
     ];
 
     /**
-     * Cart constructor.
+     * Order constructor.
      */
     public function __construct()
     {
+        parent::__construct();
         $this->old_properties = $this->properties;
     }
 
     /**
-     * @param string $name
-     * @param string|int|float $value
+     * @param $name
+     * @param $value
      */
     public function __set($name, $value)
     {
@@ -43,15 +41,22 @@ class Cart extends DataEntity
     }
 
     /**
-     * @param string $name
+     * @param $name
      * @return mixed
      */
     public function __get($name)
     {
         if (isset($this->properties[$name])) {
             return $this->properties[$name];
-        } else {
-            return false;
         }
+    }
+
+    /**
+     * Returns 'orders' the name of an orders table.
+     * @return string
+     */
+    public static function getTableName() : string
+    {
+        return 'orders';
     }
 }

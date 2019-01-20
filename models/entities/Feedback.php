@@ -1,25 +1,27 @@
 <?php
 
-namespace app\models;
+namespace app\models\entities;
 
 /**
- * Class Vendor
- * @package app\models
+ * Class Feedback contains feedback methods and properties.
+ * @package app\models\entities
  */
-class Vendor extends Record
+class Feedback extends Entity
 {
     public $properties = [
         'id' => '',
-        'name' => ''
+        'user_id' => '',
+        'message' => ''
     ];
 
     public $old_properties = [
         'id' => '',
-        'name' => ''
+        'user_id' => '',
+        'message' => ''
     ];
 
     /**
-     * Vendor constructor.
+     * Feedback constructor.
      */
     public function __construct()
     {
@@ -50,11 +52,11 @@ class Vendor extends Record
     }
 
     /**
-     * Returns 'vendors' the name of a vendors table.
+     * Returns 'feedbacks' the name of a feedbacks table.
      * @return string
      */
     public static function getTableName(): string
     {
-        return 'vendors';
+        return 'feedbacks';
     }
 }

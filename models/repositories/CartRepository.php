@@ -3,7 +3,8 @@
 namespace app\models\repositories;
 
 
-use app\models\Cart;
+use app\models\entities\Cart;
+use app\services\Request;
 
 /**
  * Class CartRepository contains methods working with the database cart table.
@@ -46,7 +47,7 @@ class CartRepository extends Repository
      */
     public function addToCart()
     {
-        $id = $_GET['id'];
+        $id = (new Request())->getParams()['id'];
         $cart_products = $this->getAll();
 
         $product = new Cart();
@@ -71,7 +72,7 @@ class CartRepository extends Repository
      */
     public function removeOne()
     {
-        $id = $_GET['id'];
+        $id = (new Request())->getParams()['id'];
 
         $cart_product = $this->getOne($id, 'product_id');
 
@@ -92,7 +93,7 @@ class CartRepository extends Repository
      */
     public function remove()
     {
-        $id = $_GET['id'];
+        $id = (new Request())->getParams()['id'];
 
         $product = new Cart();
         $product->product_id = $id;

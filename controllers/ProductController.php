@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Product;
 use app\models\repositories\ProductRepository;
+use app\services\Request;
 
 /**
  * Class ProductController manages all product actions.
@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     protected function actionCard()
     {
-        $id = $_GET['id'];
+        $id = (new Request())->getParams()['id'];
         $product = (new ProductRepository())->getOne($id);
         echo $this->render('card', ['product' => $product]);
     }

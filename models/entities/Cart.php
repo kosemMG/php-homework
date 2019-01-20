@@ -1,41 +1,37 @@
 <?php
 
-namespace app\models;
+namespace app\models\entities;
+
 
 /**
- * Class User
- * @package app\models
+ * Class Cart contains cart methods and properties.
+ * @package app\models\entities
  */
-class User extends Record
+class Cart extends Entity
 {
     public $properties = [
         'id' => '',
-        'login' => '',
-        'password' => '',
-        'name' => '',
-        'email' => ''
+        'product_id' => '',
+        'amount' => ''
     ];
 
     public $old_properties = [
         'id' => '',
-        'login' => '',
-        'password' => '',
-        'name' => '',
-        'email' => ''
+        'product_id' => '',
+        'amount' => ''
     ];
 
     /**
-     * User constructor.
+     * Cart constructor.
      */
     public function __construct()
     {
-        parent::__construct();
         $this->old_properties = $this->properties;
     }
 
     /**
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param string|int|float $value
      */
     public function __set($name, $value)
     {
@@ -45,22 +41,15 @@ class User extends Record
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     public function __get($name)
     {
         if (isset($this->properties[$name])) {
             return $this->properties[$name];
+        } else {
+            return false;
         }
-    }
-
-    /**
-     * Returns 'users' the name of a users table.
-     * @return string
-     */
-    public static function getTableName() : string
-    {
-        return 'users';
     }
 }
