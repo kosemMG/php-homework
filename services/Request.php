@@ -69,7 +69,7 @@ class Request
      */
     public function getMethod()
     {
-
+        return $_SERVER['REQUEST_METHOD'];
     }
 
     /**
@@ -77,6 +77,10 @@ class Request
      */
     public function isAjax()
     {
-
+        if (isset($this->getParams()['ajax'])) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
