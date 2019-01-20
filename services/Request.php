@@ -2,6 +2,8 @@
 
 namespace app\services;
 
+class RequestException extends \Exception{}
+
 /**
  * Class Request contains methods for reading a URL.
  * @package app\services
@@ -16,6 +18,7 @@ class Request
 
     /**
      * Request constructor.
+     * @throws RequestException
      */
     public function __construct()
     {
@@ -25,6 +28,7 @@ class Request
 
     /**
      * Parse a URL by regular expression.
+     * @throws RequestException
      */
     private function parseRequest()
     {
@@ -34,6 +38,10 @@ class Request
             $this->controller_name = $matches['controller'][0];
             $this->action_name = $matches['action'][0];
             $this->params = $_REQUEST;
+
+            if (!class_exists(CONTROLLERS_NAMESPACE . ucfirst($this->controller_name) . 'Controller')) {
+                throw new RequestException('The URL is invalid.', 1);
+            }
         }
     }
 

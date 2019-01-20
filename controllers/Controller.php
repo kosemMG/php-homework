@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\interfaces\IRenderer;
+use app\services\RequestException;
 
 /**
  * Class Controller - parent for all controllers
@@ -28,8 +29,9 @@ abstract class Controller
     }
 
     /**
-     * Runs passed action.
-     * @param null|string $action
+     * Runs the passed action.
+     * @param string|null $action
+     * @throws RequestException
      */
     public function run(string $action = null)
     {
@@ -39,7 +41,7 @@ abstract class Controller
         if (method_exists($this, $method)) {
             $this->$method();
         } else {
-            echo 'Error 404';
+            throw new RequestException('The URL is invalid.', 2);
         }
     }
 

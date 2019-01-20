@@ -22,6 +22,7 @@ class ProductController extends Controller
 
     /**
      * Renders a card page.
+     * @throws \app\services\RequestException
      */
     protected function actionCard()
     {
@@ -29,4 +30,6 @@ class ProductController extends Controller
         $product = (new ProductRepository())->getOne($id);
         echo $this->render('card', ['product' => $product]);
     }
+
+
 }
