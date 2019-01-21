@@ -3,7 +3,7 @@
 namespace app\models\repositories;
 
 
-use app\models\User;
+use app\models\entities\User;
 
 /**
  * Class UserRepository contains methods for working with the 'users' database table.

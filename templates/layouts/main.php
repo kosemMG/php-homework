@@ -8,10 +8,14 @@
     <title>Document</title>
 </head>
 <body>
-<div class="header">This is a header.</div>
+<div class="header">
+    This is a header.<br><br>
+    <nav><a href="/">Catalog</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/cart">Cart</a></nav><br>
+</div>
 <div class="content">
     <?=$content?>
 </div>
+<br>
 <div class="footer">This is a footer.</div>
 </body>
 </html>

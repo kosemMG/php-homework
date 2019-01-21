@@ -3,7 +3,9 @@
 namespace app\models\repositories;
 
 
-use app\models\Order;
+
+use app\models\entities\Order;
+use app\services\Request;
 
 /**
  * Class OrderRepository contains methods for working with the 'orders' database table.
@@ -27,5 +29,26 @@ class OrderRepository extends Repository
     public function getEntityClass(): string
     {
         return Order::class;
+    }
+
+    /**
+     * Writes an order into a database.
+     * @throws \app\services\RequestException
+     */
+    public function order()
+    {
+        $user_id = (new Request())->getParams()['id'];
+
+        $table_name = (new CartRepository())->getTableName();
+        $sql = "SELECT * FROM {$table_name} WHERE user_id = :user_id";
+        $cart_products = $this->db->queryAllObjects($sql, $this->getEntityClass(), [":user_id" => $user_id]);
+
+        foreach ($cart_products as $cart_product) {
+            $order = new Order();
+            $order->user_id = $user_id;
+            $order->product_id = $cart_product->product_id;
+            $order->amount = $cart_product->amount;
+            $this->commitChange($order);
+        }
     }
 }

@@ -10,13 +10,15 @@ namespace app\models\entities;
 class Cart extends Entity
 {
     public $properties = [
-        'id' => '',
+//        'id' => '',
+        'user_id' => 1,
         'product_id' => '',
         'amount' => ''
     ];
 
     public $old_properties = [
-        'id' => '',
+//        'id' => '',
+        'user_id' => 1,
         'product_id' => '',
         'amount' => ''
     ];
@@ -41,8 +43,8 @@ class Cart extends Entity
     }
 
     /**
-     * @param string $name
-     * @return mixed
+     * @param $name
+     * @return bool|mixed
      */
     public function __get($name)
     {

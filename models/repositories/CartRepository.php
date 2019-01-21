@@ -36,7 +36,7 @@ class CartRepository extends Repository
      */
     public function getCart()
     {
-        $sql = "SELECT cart.product_id, products.image_path, products.name, cart.amount, (products.price * cart.amount) AS price FROM  
+        $sql = "SELECT cart.user_id, cart.product_id, products.image_path, products.name, cart.amount, (products.price * cart.amount) AS price FROM  
                 products, cart WHERE cart.product_id = products.id";
 
         return $this->db->queryAllObjects($sql, \stdClass::class);
@@ -44,6 +44,7 @@ class CartRepository extends Repository
 
     /**
      * Adds a new product to the cart (in DB).
+     * @throws \app\services\RequestException
      */
     public function addToCart()
     {
@@ -69,6 +70,7 @@ class CartRepository extends Repository
 
     /**
      * Removes an item from a cart by reducing amount column.
+     * @throws \app\services\RequestException
      */
     public function removeOne()
     {
@@ -90,6 +92,7 @@ class CartRepository extends Repository
 
     /**
      * Removes a whole record from a 'cart' table.
+     * @throws \app\services\RequestException
      */
     public function remove()
     {

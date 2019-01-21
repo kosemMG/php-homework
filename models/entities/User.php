@@ -29,7 +29,6 @@ class User extends Entity
      */
     public function __construct()
     {
-        parent::__construct();
         $this->old_properties = $this->properties;
     }
 

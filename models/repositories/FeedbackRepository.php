@@ -3,7 +3,8 @@
 namespace app\models\repositories;
 
 
-use app\models\Feedback;
+
+use app\models\entities\Feedback;
 
 /**
  * Class FeedbackRepository contains methods for working with the 'feebacks' database table.

@@ -47,12 +47,14 @@ class Product extends Entity
 
     /**
      * @param $name
-     * @return mixed
+     * @return bool|mixed
      */
     public function __get($name)
     {
         if (isset($this->properties[$name])) {
             return $this->properties[$name];
+        } else {
+            return false;
         }
     }
 }

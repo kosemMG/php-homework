@@ -4,11 +4,11 @@
  */
 ?>
 
-<h3>The cart:</h3>
+    <h3>The cart:</h3>
 <?php if (empty($cart)): ?>
     <div>The cart is empty.</div>
 <?php else: ?>
-<a href="/cart/clear">Clear cart</a>
+    <a href="/cart/clear">Clear cart</a><br><br>
     <table>
         <tr>
             <th>Image</th>
@@ -24,10 +24,12 @@
                 <td><?= $item->amount ?></td>
                 <td>&#36;&nbsp;<?= $item->price ?></td>
                 <td>
-                    <a href="/cart/reduce/?id=<?= $item->product_id ?>">Reduce</a>
-                    <a href="/cart/remove/?id=<?= $item->product_id ?>">Remove</a>
+                    <a href="/cart/reduce?id=<?= $item->product_id ?>">Reduce</a>
+                    <a href="/cart/remove?id=<?= $item->product_id ?>">Remove</a>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
+    <br>
+    <a href="/order?id=<?= $cart[0]->user_id ?>">Make an order</a>
 <?php endif; ?>

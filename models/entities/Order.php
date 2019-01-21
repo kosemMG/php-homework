@@ -11,13 +11,15 @@ class Order extends Entity
     public $properties = [
         'id' => '',
         'user_id' => '',
-        'message' => ''
+        'product_id' => '',
+        'amount' => ''
     ];
 
     public $old_properties = [
         'id' => '',
         'user_id' => '',
-        'cart_id' => ''
+        'product_id' => '',
+        'amount' => ''
     ];
 
     /**
@@ -25,7 +27,6 @@ class Order extends Entity
      */
     public function __construct()
     {
-        parent::__construct();
         $this->old_properties = $this->properties;
     }
 
@@ -42,21 +43,14 @@ class Order extends Entity
 
     /**
      * @param $name
-     * @return mixed
+     * @return bool|mixed
      */
     public function __get($name)
     {
         if (isset($this->properties[$name])) {
             return $this->properties[$name];
+        } else {
+            return false;
         }
-    }
-
-    /**
-     * Returns 'orders' the name of an orders table.
-     * @return string
-     */
-    public static function getTableName() : string
-    {
-        return 'orders';
     }
 }

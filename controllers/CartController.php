@@ -18,14 +18,17 @@ class CartController extends Controller
 
     /**
      * Adds a product to the cart.
+     * @throws \app\services\RequestException
      */
     protected function actionAdd()
     {
         (new CartRepository())->addToCart();
     }
 
+
     /**
      * Removes a product from the cart.
+     * @throws \app\services\RequestException
      */
     protected function actionRemove()
     {
@@ -34,6 +37,7 @@ class CartController extends Controller
 
     /**
      * Reduces the amount of items of a product in the cart.
+     * @throws \app\services\RequestException
      */
     protected function actionReduce()
     {
