@@ -2,6 +2,7 @@
 
 namespace app\services\renderers;
 
+use app\base\App;
 use app\interfaces\IRenderer;
 
 /**
@@ -24,7 +25,7 @@ class TemplateRenderer implements IRenderer
         ob_start();
         extract($params);
         $template_path =
-            TEMPLATES_DIR . $this->createSubdir($class_name) . DIRECTORY_SEPARATOR . $template . $this->file_extension;
+            App::call()->config['templates_dir'] . $this->createSubdir($class_name) . DIRECTORY_SEPARATOR . $template . $this->file_extension;
         include $template_path;
         return ob_get_clean();
     }

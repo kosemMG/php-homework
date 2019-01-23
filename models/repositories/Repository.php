@@ -2,9 +2,9 @@
 
 namespace app\models\repositories;
 
+use app\base\App;
 use app\interfaces\IRepository;
 use app\models\entities\Entity;
-use app\services\Db;
 
 /**
  * Class Repository contains methods for reading from and writing into a database.
@@ -19,7 +19,7 @@ abstract class Repository implements IRepository
      */
     public function __construct()
     {
-        $this->db = Db::getInstance();
+        $this->db = App::call()->db;
     }
 
     /**
@@ -77,7 +77,9 @@ abstract class Repository implements IRepository
     {
         if ($entity->id === '') {
             $this->insert($entity);
+            echo 'insert';exit;
         } else {
+            echo 'update';exit;
             $this->update($entity);
         }
     }

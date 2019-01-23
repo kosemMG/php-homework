@@ -1,16 +1,27 @@
 <?php
 
-// Directory constants
-define('ROOT_DIR', $_SERVER['DOCUMENT_ROOT'] . "/../");
-define('TEMPLATES_DIR', ROOT_DIR . 'templates/');
-define('LAYOUTS_DIR', '../layouts/');
-define('VENDOR_DIR', ROOT_DIR . 'vendor/');
-define('TWIG_DIR', TEMPLATES_DIR . 'twig');
-
-// Configuration constants
-define('DEFAULT_CONTROLLER', 'product');
-define('CONTROLLERS_NAMESPACE', '\\app\\controllers\\');
-
-// Exceptions constants
-define('INVALID_CONTROLLER', 1);
-define('INVALID_ACTION', 2);
+return [
+    'root_dir' => __DIR__ . '/../',
+    'templates_dir' => __DIR__ . '/../templates/',
+    'layouts_dir' => '../layouts/',
+    'vendors_dir' => __DIR__ . '/../vendor/',
+    'default_controller' => 'product',
+    'controllers_namespace' => '\\app\\controllers\\',
+    'components' => [
+        'db' => [
+            'class' => \app\services\Db::class,
+            'driver' => 'mysql',
+            'host' => '127.0.0.1',
+            'login' => 'root',
+            'password' => 'password',
+            'database' => 'brand_shop',
+            'charset' => 'utf8'
+        ],
+        'request' => [
+            'class' => \app\services\Request::class
+        ],
+        'template_renderer' => [
+            'class' => \app\services\renderers\TemplateRenderer::class
+        ]
+    ]
+];

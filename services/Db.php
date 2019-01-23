@@ -3,7 +3,6 @@
 namespace app\services;
 
 use app\interfaces\IDb;
-use app\traits\TSingleton;
 
 /**
  * Class Db contains methods managing a database.
@@ -11,18 +10,29 @@ use app\traits\TSingleton;
  */
 class Db implements IDb
 {
-    use TSingleton;
-
-    private $config = [
-        'driver' => 'mysql',
-        'host' => '127.0.0.1',
-        'login' => 'root',
-        'password' => 'password',
-        'database' => 'brand_shop',
-        'charset' => 'utf8'
-    ];
+    private $config;
 
     private $conn = null;
+
+    /**
+     * Db constructor.
+     * @param $driver
+     * @param $host
+     * @param $login
+     * @param $password
+     * @param $database
+     * @param $charset
+     */
+    public function __construct($driver, $host, $login, $password, $database, $charset = 'utf8')
+    {
+        $this->config['driver'] = $driver;
+        $this->config['host'] = $host;
+        $this->config['login'] = $login;
+        $this->config['password'] = $password;
+        $this->config['database'] = $database;
+        $this->config['charset'] = $charset;
+    }
+
 
     /**
      * Creates connection via PDO.

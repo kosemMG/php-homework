@@ -3,6 +3,7 @@
 namespace app\models\repositories;
 
 
+use app\base\App;
 use app\models\entities\Cart;
 use app\services\Request;
 
@@ -48,7 +49,7 @@ class CartRepository extends Repository
      */
     public function addToCart()
     {
-        $id = (new Request())->getParams()['id'];
+        $id = App::call()->request->getParams()['id'];
         $cart_products = $this->getAll();
 
         $product = new Cart();
@@ -63,7 +64,6 @@ class CartRepository extends Repository
                 break;
             }
         }
-
         $this->commitChange($product);
         header('Location: /');
     }

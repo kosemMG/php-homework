@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\base\App;
 use app\interfaces\IRenderer;
 use app\services\RequestException;
 
@@ -55,7 +56,7 @@ abstract class Controller
     {
         if ($this->use_layout) {
             $content = $this->renderTemplate($template, $params);
-            $result = $this->renderTemplate(LAYOUTS_DIR . $this->layout, ['content' => $content]);
+            $result = $this->renderTemplate(App::call()->config['layouts_dir'] . $this->layout, ['content' => $content]);
 
             return $result;
         }

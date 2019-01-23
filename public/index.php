@@ -1,29 +1,10 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/../config/main.php";
-require_once VENDOR_DIR . 'autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
+//include $_SERVER['DOCUMENT_ROOT'] . '/../config/constants.php';
 
-use app\services\renderers\TemplateRenderer;
-use app\services\Request;
-use app\services\RequestException;
+use app\base\App;
 
-try {
-    $request = new Request();
-} catch (RequestException $exception) {
-    header("Location: /error");
-}
+$config = include $_SERVER['DOCUMENT_ROOT'] . "/../config/main.php";
 
-    $controller_name = $request->getControllerName() ?: DEFAULT_CONTROLLER;
-    $action = $request->getActionName();
-
-    $controller_class = CONTROLLERS_NAMESPACE . ucfirst($controller_name) . 'Controller';
-
-    if (class_exists($controller_class)) {
-        $controller = new $controller_class(new TemplateRenderer());
-        try {
-            $controller->run($action);
-        } catch (RequestException $exception) {
-            header("Location: /error");
-        }
-
-    }
+App::call()->run($config);
