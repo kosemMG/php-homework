@@ -20,9 +20,9 @@ class ProductController extends Controller
         echo $this->render('catalog', ['products' => $products]);
     }
 
+
     /**
      * Renders a card page.
-     * @throws \app\services\RequestException
      */
     protected function actionCard()
     {

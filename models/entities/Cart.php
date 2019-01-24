@@ -10,14 +10,14 @@ namespace app\models\entities;
 class Cart extends Entity
 {
     public $properties = [
-//        'id' => '',
+        'id' => '',
         'user_id' => 1,
         'product_id' => '',
         'amount' => ''
     ];
 
     public $old_properties = [
-//        'id' => '',
+        'id' => '',
         'user_id' => 1,
         'product_id' => '',
         'amount' => ''

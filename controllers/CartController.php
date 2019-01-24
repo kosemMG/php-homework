@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Cart;
 use app\models\repositories\CartRepository;
+use app\base\App;
 
 class CartController extends Controller
 {
@@ -16,33 +16,36 @@ class CartController extends Controller
         echo $this->render('cart', ['cart' => $cart]);
     }
 
+
     /**
      * Adds a product to the cart.
-     * @throws \app\services\RequestException
      */
     protected function actionAdd()
     {
-        (new CartRepository())->addToCart();
+        $id = App::call()->request->getParams()['id'];
+        (new CartRepository())->addToCart($id);
     }
 
 
     /**
      * Removes a product from the cart.
-     * @throws \app\services\RequestException
      */
     protected function actionRemove()
     {
-        (new CartRepository())->remove();
+        $id = App::call()->request->getParams()['id'];
+        (new CartRepository())->remove($id);
     }
+
 
     /**
      * Reduces the amount of items of a product in the cart.
-     * @throws \app\services\RequestException
      */
     protected function actionReduce()
     {
-        (new CartRepository())->removeOne();
+        $id = App::call()->request->getParams()['id'];
+        (new CartRepository())->removeOne($id);
     }
+
 
     /**
      * Clears the cart.

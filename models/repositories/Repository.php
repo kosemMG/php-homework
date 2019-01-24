@@ -22,6 +22,7 @@ abstract class Repository implements IRepository
         $this->db = App::call()->db;
     }
 
+
     /**
      * Creates an object from a database record by assigned column.
      * @param int $value
@@ -35,6 +36,7 @@ abstract class Repository implements IRepository
         return $this->db->queryObject($sql, $this->getEntityClass(), [":{$column}" => $value]);
     }
 
+
     /**
      * Creates an array of objects of all table database records.
      * @return array
@@ -45,6 +47,7 @@ abstract class Repository implements IRepository
         $sql = "SELECT * FROM `{$table_name}`";
         return $this->db->queryAllObjects($sql, $this->getEntityClass());
     }
+
 
     /**
      * Deletes a row from a database.
@@ -58,6 +61,7 @@ abstract class Repository implements IRepository
         return $this->db->execute($sql, [':id' => $entity->id]);
     }
 
+
     /**
      * Clears a table.
      * @return bool
@@ -69,6 +73,7 @@ abstract class Repository implements IRepository
         return $this->db->execute($sql);
     }
 
+
     /**
      * Saves changes in a database.
      * @param Entity $entity
@@ -77,12 +82,11 @@ abstract class Repository implements IRepository
     {
         if ($entity->id === '') {
             $this->insert($entity);
-            echo 'insert';exit;
         } else {
-            echo 'update';exit;
             $this->update($entity);
         }
     }
+
 
     /**
      * Inserts a record to a database.
@@ -112,6 +116,7 @@ abstract class Repository implements IRepository
 
         $entity->id = $this->db->lastInsertId();
     }
+
 
     /**
      * Updates a record in a database.
@@ -146,11 +151,13 @@ abstract class Repository implements IRepository
         $this->db->execute($sql, $params);
     }
 
+
     /**
      * Returns a table name.
      * @return string
      */
     abstract public function getTableName(): string;
+
 
     /**
      * Returns an inheritor class.

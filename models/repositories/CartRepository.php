@@ -22,6 +22,7 @@ class CartRepository extends Repository
         return 'cart';
     }
 
+
     /**
      * Returns the Cart class name.
      * @return string
@@ -30,6 +31,7 @@ class CartRepository extends Repository
     {
         return Cart::class;
     }
+
 
     /**
      * Returns an array of cart products objects.
@@ -43,13 +45,13 @@ class CartRepository extends Repository
         return $this->db->queryAllObjects($sql, \stdClass::class);
     }
 
+
     /**
      * Adds a new product to the cart (in DB).
-     * @throws \app\services\RequestException
+     * @param int $id
      */
-    public function addToCart()
+    public function addToCart(int $id)
     {
-        $id = App::call()->request->getParams()['id'];
         $cart_products = $this->getAll();
 
         $product = new Cart();
@@ -57,7 +59,7 @@ class CartRepository extends Repository
         $product->amount = 1;
 
         foreach ($cart_products as $cart_product) {
-            if ($cart_product->product_id === $id) {
+            if ($cart_product->product_id == $id) {
                 $cart_product = $this->getOne($id, 'product_id');
                 $product->id = $cart_product->id;
                 $product->amount = $cart_product->amount + 1;
@@ -68,14 +70,13 @@ class CartRepository extends Repository
         header('Location: /');
     }
 
+
     /**
      * Removes an item from a cart by reducing amount column.
-     * @throws \app\services\RequestException
+     * @param int $id
      */
-    public function removeOne()
+    public function removeOne(int $id)
     {
-        $id = (new Request())->getParams()['id'];
-
         $cart_product = $this->getOne($id, 'product_id');
 
         if ($cart_product->amount > 1) {
@@ -86,18 +87,16 @@ class CartRepository extends Repository
             $this->commitChange($product);
             header('Location: /cart');
         } else {
-            $this->remove();
+            $this->remove($id);
         }
     }
 
     /**
      * Removes a whole record from a 'cart' table.
-     * @throws \app\services\RequestException
+     * @param int $id
      */
-    public function remove()
+    public function remove(int $id)
     {
-        $id = (new Request())->getParams()['id'];
-
         $product = new Cart();
         $product->product_id = $id;
         $cart_product = $this->getOne($id, 'product_id');

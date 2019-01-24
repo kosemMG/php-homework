@@ -28,18 +28,28 @@ class App
      */
     private $components;
 
+    /**
+     * @return App
+     */
     public static function call()
     {
         return static::getInstance();
     }
 
-    public function run($config)
+    /**
+     * Runs the application.
+     * @param array $config
+     */
+    public function run(array $config)
     {
         $this->config = $config;
         $this->components = new Storage();
         $this->runController();
     }
 
+    /**
+     * Runs the necessary controller.
+     */
     private function runController()
     {
         try {
@@ -63,11 +73,21 @@ class App
         }
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     * @throws \Exception
+     */
     public function __get($name)
     {
         return $this->components->get($name);
     }
 
+    /**
+     * @param $name
+     * @return object
+     * @throws \ReflectionException
+     */
     public function createComponent($name)
     {
         if (isset($this->config['components'][$name])) {
