@@ -3,9 +3,8 @@
 namespace app\models\repositories;
 
 
-use app\base\App;
 use app\models\entities\Cart;
-use app\services\Request;
+
 
 /**
  * Class CartRepository contains methods working with the database cart table.

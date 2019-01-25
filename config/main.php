@@ -7,6 +7,7 @@ return [
     'vendors_dir' => __DIR__ . '/../vendor/',
     'default_controller' => 'product',
     'controllers_namespace' => '\\app\\controllers\\',
+    'salt' => 'sdf3434sd8fs42dfs',
     'components' => [
         'db' => [
             'class' => \app\services\Db::class,
@@ -22,6 +23,15 @@ return [
         ],
         'template_renderer' => [
             'class' => \app\services\renderers\TemplateRenderer::class
-        ]
+        ],
+        'session' => [
+            'class' => \app\services\Session::class
+        ],
+        'cookie' => [
+            'class' => \app\services\Cookie::class
+        ],
+//        'component' => [
+//            'class' => \app\services\Component::class
+//        ]
     ]
 ];

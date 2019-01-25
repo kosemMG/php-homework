@@ -4,18 +4,22 @@ namespace app\base;
 
 
 use app\interfaces\IRenderer;
+use app\services\Component;
+use app\services\Cookie;
 use app\services\Db;
+use app\services\Session;
 use app\traits\TSingleton;
-use app\services\renderers\TemplateRenderer;
 use app\services\Request;
 use app\services\RequestException;
 
 /**
- * Class App
+ * Class App runs and manages the main application.
  * @package app\base
  * @property Db $db
  * @property Request $request
  * @property IRenderer $template_renderer
+ * @property Session $session
+ * @property Cookie $cookie
  */
 class App
 {
@@ -52,19 +56,20 @@ class App
      */
     private function runController()
     {
-        try {
-            $request = new Request();
-        } catch (RequestException $exception) {
-            header("Location: /error");
-        }
+//        try {
+//            $request = new Request();
+//        } catch (RequestException $exception) {
+//            header("Location: /error");
+//        }
 
-        $controller_name = $request->getControllerName() ?: $this->config['default_controller'];
-        $action = $request->getActionName();
+        $controller_name = App::call()->request->getControllerName() ?: $this->config['default_controller'];
+        $action = App::call()->request->getActionName();
 
         $controller_class = $this->config['controllers_namespace'] . ucfirst($controller_name) . 'Controller';
 
         if (class_exists($controller_class)) {
-            $controller = new $controller_class(new TemplateRenderer());
+            $template_renderer = App::call()->template_renderer;
+            $controller = new $controller_class($template_renderer);
             try {
                 $controller->run($action);
             } catch (RequestException $exception) {
@@ -81,27 +86,5 @@ class App
     public function __get($name)
     {
         return $this->components->get($name);
-    }
-
-    /**
-     * @param $name
-     * @return object
-     * @throws \ReflectionException
-     */
-    public function createComponent($name)
-    {
-        if (isset($this->config['components'][$name])) {
-            $params = $this->config['components'][$name];
-            $class = $params['class'];
-
-            if (class_exists($class)) {
-                $reflection = new \ReflectionClass($class);
-                unset($params['class']);
-
-                return $reflection->newInstanceArgs($params);
-            }
-            throw new \Exception("The component class {$class} is not declared.");
-        }
-        throw new \Exception("The component {$name} is not declared.");
     }
 }

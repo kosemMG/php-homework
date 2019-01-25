@@ -3,6 +3,8 @@
 namespace app\base;
 
 
+use app\services\Component;
+
 class Storage
 {
     private $items = [];
@@ -24,7 +26,7 @@ class Storage
     public function get($key)
     {
         if (!isset($this->items[$key])) {
-            $this->items[$key] = App::call()->createComponent($key);
+            $this->items[$key] = (new Component())->create($key);
         }
 
         return $this->items[$key];
