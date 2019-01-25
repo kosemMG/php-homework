@@ -105,7 +105,7 @@ class UserRepository extends Repository
      * @param string $login
      * @param string $password
      */
-    public function auth(string $login, string  $password)
+    public function login(string $login, string  $password)
     {
         $users = $this->getAll();
 
