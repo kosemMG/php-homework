@@ -18,6 +18,9 @@ class Request
 
     private $request_string;
 
+    private $request_method;
+    private $referrer;
+
     /**
      * Request constructor.
      * @throws RequestException
@@ -25,8 +28,12 @@ class Request
     public function __construct()
     {
         $this->request_string = $_SERVER['REQUEST_URI'];
+        $this->request_method = $_SERVER['REQUEST_METHOD'];
+        $this->referrer = $_SERVER['HTTP_REFERER'];
+
         $this->parseRequest();
     }
+
 
     /**
      * Parse a URL by regular expression.
@@ -47,6 +54,7 @@ class Request
         }
     }
 
+
     /**
      * Returns a controller name.
      * @return string|null
@@ -55,6 +63,7 @@ class Request
     {
         return $this->controller_name;
     }
+
 
     /**
      * Returns an action name.
@@ -65,6 +74,7 @@ class Request
         return $this->action_name;
     }
 
+
     /**
      * Returns an array of parameters.
      * @return array
@@ -74,23 +84,53 @@ class Request
         return $this->params;
     }
 
+
     /**
      * Defines the request method.
+     * @return mixed
      */
     public function getMethod()
     {
         return $_SERVER['REQUEST_METHOD'];
     }
 
+
+    /**
+     * Defines whether the request has been done by GET method.
+     * @return bool
+     */
+    public function isGet(): bool
+    {
+        return $this->request_method === "GET";
+    }
+
+
+    /**
+     * Defines whether the request has been done by POST method.
+     * @return bool
+     */
+    public function isPost(): bool
+    {
+        return $this->request_method === "POST";
+    }
+
+
     /**
      * Defines whether the request was AJAX.
+     * @return bool
      */
-    public function isAjax()
+    public function isAjax(): bool
     {
-        if (isset($this->getParams()['ajax'])) {
-            return true;
-        } else {
-            return false;
-        }
+        return $_SERVER['HTTP_X_REQUEST_WITH'] === 'XMLHttpRequest';
+    }
+
+
+    /**
+     * Returns a referrer.
+     * @return mixed
+     */
+    public function getReferrer()
+    {
+        return $this->referrer;
     }
 }
