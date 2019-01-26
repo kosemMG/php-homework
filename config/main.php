@@ -30,8 +30,8 @@ return [
         'cookie' => [
             'class' => \app\services\Cookie::class
         ],
-//        'component' => [
-//            'class' => \app\services\Component::class
-//        ]
+        'auth' => [
+            'class' => \app\services\Auth::class
+        ]
     ]
 ];
