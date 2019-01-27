@@ -24,8 +24,8 @@ class TemplateRenderer implements IRenderer
     {
         ob_start();
         extract($params);
-        $template_path =
-            App::call()->config['templates_dir'] . $this->createSubdir($class_name) . DIRECTORY_SEPARATOR . $template . $this->file_extension;
+        $template_path = App::call()->config['templates_dir'] . $this->createSubdir($class_name)
+            . DIRECTORY_SEPARATOR . $template . $this->file_extension;
         include $template_path;
         return ob_get_clean();
     }

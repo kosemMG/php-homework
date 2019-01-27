@@ -47,10 +47,6 @@ class Request
             $this->controller_name = $matches['controller'][0];
             $this->action_name = $matches['action'][0];
             $this->params = $_REQUEST;
-
-            if (!class_exists(App::call()->config['controllers_namespace'] . ucfirst($this->controller_name) . 'Controller')) {
-                throw new RequestException('The URL is invalid.', 1);
-            }
         }
     }
 

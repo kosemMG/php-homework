@@ -24,6 +24,7 @@ class CartController extends Controller
     {
         $id = App::call()->request->getParams()['id'];
         (new CartRepository())->addToCart($id);
+        header('Location: /');
     }
 
 
@@ -34,6 +35,7 @@ class CartController extends Controller
     {
         $id = App::call()->request->getParams()['id'];
         (new CartRepository())->remove($id);
+        header('Location: /cart');
     }
 
 
@@ -44,6 +46,7 @@ class CartController extends Controller
     {
         $id = App::call()->request->getParams()['id'];
         (new CartRepository())->removeOne($id);
+        header('Location: /cart');
     }
 
 
@@ -53,5 +56,6 @@ class CartController extends Controller
     protected function actionClear()
     {
         (new CartRepository())->clearCart();
+        header('Location: /cart');
     }
 }

@@ -13,6 +13,6 @@ class ErrorController extends Controller
      */
     protected function actionIndex()
     {
-        echo $this->render('../404');
+        echo $this->render('404');
     }
 }

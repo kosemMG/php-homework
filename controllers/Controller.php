@@ -56,7 +56,8 @@ abstract class Controller
     {
         if ($this->use_layout) {
             $content = $this->renderTemplate($template, $params);
-            $result = $this->renderTemplate(App::call()->config['layouts_dir'] . $this->layout, ['content' => $content]);
+            $result = $this->renderTemplate(App::call()->config['layouts_dir']
+                . $this->layout, ['content' => $content]);
 
             return $result;
         }

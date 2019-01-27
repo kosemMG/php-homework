@@ -66,7 +66,6 @@ class CartRepository extends Repository
             }
         }
         $this->commitChange($product);
-        header('Location: /');
     }
 
 
@@ -84,7 +83,6 @@ class CartRepository extends Repository
             $product->id = $cart_product->id;
             $product->amount = $cart_product->amount - 1;
             $this->commitChange($product);
-            header('Location: /cart');
         } else {
             $this->remove($id);
         }
@@ -102,7 +100,6 @@ class CartRepository extends Repository
         $product->id = $cart_product->id;
 
         $this->delete($product);
-        header('Location: /cart');
     }
 
     /**
@@ -111,6 +108,5 @@ class CartRepository extends Repository
     public function clearCart()
     {
         $this->clear();
-        header('Location: /cart');
     }
 }

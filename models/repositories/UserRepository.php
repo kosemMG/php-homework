@@ -3,7 +3,6 @@
 namespace app\models\repositories;
 
 
-use app\base\App;
 use app\models\entities\Entity;
 use app\models\entities\User;
 
@@ -13,9 +12,6 @@ use app\models\entities\User;
  */
 class UserRepository extends Repository
 {
-    private $allow = false;
-
-
     /**
      * Returns 'users' - the name of a users table.
      * @return string
@@ -48,6 +44,17 @@ class UserRepository extends Repository
         $sql = "SELECT * FROM `{$table_name}` WHERE `login` = :login AND `password` = :pass";
 
         return $this->db->queryObject($sql, $this->getEntityClass(), [':login' => $login, ':pass' => $pass]);
+    }
+
+
+    /**
+     * Returns a user's id.
+     * @param Entity $user
+     * @return string
+     */
+    public function getUserId(Entity $user): string
+    {
+        return $user->id;
     }
 
 

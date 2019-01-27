@@ -25,7 +25,6 @@ class Auth
         $this->admin_login = 'admin';
     }
 
-
     /**
      * Checks if the authorized user is admin.
      * @return bool
@@ -37,7 +36,6 @@ class Auth
 
         return $cookie_login === $this->admin_login || $session_login === $this->admin_login;
     }
-
 
     /**
      * Checks if the user is authorized.
@@ -51,7 +49,6 @@ class Auth
 
         return isset($cookie_password) || isset($session_password);
     }
-
 
     /**
      * User authorization.
@@ -80,7 +77,6 @@ class Auth
         }
     }
 
-
     /**
      * User logout.
      */
@@ -101,4 +97,27 @@ class Auth
         }
     }
 
+    /**
+     * @return string
+     */
+    public function getLoginLabel(): string
+    {
+        return $this->login_label;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPasswordLabel(): string
+    {
+        return $this->password_label;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdminLogin(): string
+    {
+        return $this->admin_login;
+    }
 }

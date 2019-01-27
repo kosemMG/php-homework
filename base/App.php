@@ -4,7 +4,7 @@ namespace app\base;
 
 
 use app\interfaces\IRenderer;
-use app\services\Component;
+use app\services\Auth;
 use app\services\Cookie;
 use app\services\Db;
 use app\services\Session;
@@ -20,6 +20,7 @@ use app\services\RequestException;
  * @property IRenderer $template_renderer
  * @property Session $session
  * @property Cookie $cookie
+ * @property Auth $auth
  */
 class App
 {
@@ -48,20 +49,20 @@ class App
     {
         $this->config = $config;
         $this->components = new Storage();
-        $this->runController();
+
+        try {
+            $this->runController();
+        } catch (RequestException $exception) {
+            header("Location: /error");
+        }
     }
 
     /**
      * Runs the necessary controller.
+     * @throws RequestException
      */
     private function runController()
     {
-//        try {
-//            $request = new Request();
-//        } catch (RequestException $exception) {
-//            header("Location: /error");
-//        }
-
         $controller_name = App::call()->request->getControllerName() ?: $this->config['default_controller'];
         $action = App::call()->request->getActionName();
 
@@ -75,6 +76,8 @@ class App
             } catch (RequestException $exception) {
                 header("Location: /error");
             }
+        } else {
+            throw new RequestException('The URL is invalid.');
         }
     }
 

@@ -10,7 +10,9 @@
 <body>
 <div class="header">
     This is a header.<br><br>
-    <nav><a href="/">Catalog</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/cart">Cart</a></nav><br>
+    <nav>
+        <a href="/">Catalog</a>&nbsp;&nbsp;&nbsp;<a href="/cart">Cart</a>&nbsp;&nbsp;&nbsp;<a href="/user">Log in</a>
+    </nav><br>
 </div>
 <div class="content">
     <?=$content?>
