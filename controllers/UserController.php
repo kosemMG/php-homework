@@ -4,6 +4,7 @@ namespace app\controllers;
 
 
 use app\base\App;
+use app\models\repositories\UserRepository;
 
 class UserController extends Controller
 {
@@ -42,5 +43,37 @@ class UserController extends Controller
 
         $request = App::call()->request;
         header("Location: {$request->getReferrer()}");
+    }
+
+    /**
+     * Sign up.
+     */
+    public function actionSignup()
+    {
+        echo $this->render('signup');
+
+        $request = App::call()->request;
+
+        if ($request->isPost()) {
+            $login = $request->getParams()['login'];
+            $password = $request->getParams()['password'];
+            $name = $request->getParams()['name'];
+            $email = $request->getParams()['email'];
+
+            $users = new UserRepository();
+
+            if (!$users->search(['login' => $login, 'email' => $email])) {
+                $users->signUp($login, $password, $name, $email);
+                App::call()->auth->login($login, $password);
+                header('Location: /');
+            } else {
+                header('Location: /user/occupied');
+            }
+        }
+    }
+
+    public function actionOccupied()
+    {
+        echo $this->render('occupied');
     }
 }

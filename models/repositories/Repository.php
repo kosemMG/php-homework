@@ -71,6 +71,24 @@ abstract class Repository implements IRepository
         return $this->db->queryObject($sql, $this->getEntityClass(), $modified_params);
     }
 
+    /**
+     * Searches a database table for specific values.
+     * @param array $params
+     * @return bool
+     */
+    public function search(array $params){
+        $entities = $this->getAll();
+
+        foreach ($entities as $entity) {
+            foreach ($params as $key => $value) {
+                if ($entity->properties[$key] === $params[$key]) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
     /**
      * Deletes a row from a database.
@@ -110,7 +128,6 @@ abstract class Repository implements IRepository
 
         }
     }
-
 
     /**
      * Inserts a record to a database.

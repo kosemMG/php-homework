@@ -12,4 +12,3 @@
     <input type="hidden" name="id" value="<?= $product->id ?>">
     <input type="submit" value="Add to cart">
 </form>
-<!--<a href="/cart/add/?id=--><?//= $product->id ?><!--">Add to cart</a>-->

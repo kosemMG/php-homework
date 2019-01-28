@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\base\App;
 use app\interfaces\IRenderer;
+use app\models\repositories\UserRepository;
 use app\services\RequestException;
 
 /**
@@ -55,12 +56,13 @@ abstract class Controller
     protected function render(string $template, array $params = [])
     {
         if ($this->use_layout) {
-            $user_id = App::call()->session->getUserId();
             $allow = App::call()->auth->isAuthorized();
+            $user_id = App::call()->session->getUserId();
+            $user_name = $allow ? (new UserRepository())->getUserName($user_id) : '';
 
             $content = $this->renderTemplate($template, $params);
             $result = $this->renderTemplate(App::call()->config['layouts_dir']
-                . $this->layout, ['allow' => $allow, 'content' => $content]);
+                . $this->layout, ['allow' => $allow, 'user_name' => $user_name, 'content' => $content]);
 
             return $result;
         }

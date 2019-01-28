@@ -8,15 +8,25 @@
     <title>Document</title>
 </head>
 <body>
+<?php
+/**
+ * @var bool $allow
+ * @var string $user_name
+ * @var string $content
+ */
+?>
 <div class="header">
     This is a header.<br><br>
     <nav>
         <a href="/">Catalog</a>&nbsp;&nbsp;&nbsp;
         <a href="/cart">Cart</a>&nbsp;&nbsp;&nbsp;
         <?php if (!$allow): ?>
-            <a href="/user">Log in</a>
+        <p>
+            <a href="/user">Log in</a> or <a href="/user/signup">Sign up</a>
+        </p>
         <?php else: ?>
-            <a href="/user/logout">Log out</a>
+                Hello, <?= $user_name ?>!&nbsp;&nbsp;&nbsp;
+                <a href="/user/logout">Log out</a>
         <?php endif; ?>
     </nav>
     <br>
