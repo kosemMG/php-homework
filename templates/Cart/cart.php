@@ -31,5 +31,5 @@
         <?php endforeach; ?>
     </table>
     <br>
-    <a href="/order?id=<?= $cart[0]->user_id ?>">Make an order</a>
+    <a href="/order">Make an order</a>
 <?php endif; ?>

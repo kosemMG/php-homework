@@ -112,9 +112,16 @@ class CartRepository extends Repository
 
     /**
      * Removes all the records from a 'cart' table.
+     * @param int $user_id
      */
-    public function clearCart()
+    public function clearCart(int $user_id)
     {
-        $this->clear();
+        $cart_products = $this->getAll();
+
+        foreach ($cart_products as $product) {
+            if ($product->user_id == $user_id){
+                $this->delete($product);
+            }
+        }
     }
 }
