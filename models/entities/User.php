@@ -53,13 +53,4 @@ class User extends Entity
             return $this->properties[$name];
         }
     }
-
-    /**
-     * Returns 'users' the name of a users table.
-     * @return string
-     */
-    public static function getTableName() : string
-    {
-        return 'users';
-    }
 }

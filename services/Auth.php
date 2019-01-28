@@ -47,7 +47,6 @@ class Auth
     {
         $session_id = App::call()->session->getUserId();
         $cookie_id = App::call()->cookie->getUserId();
-        var_dump($session_id, $cookie_id);
 
         return !is_null($session_id) || !is_null($cookie_id);
     }
