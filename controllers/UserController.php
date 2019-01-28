@@ -4,7 +4,6 @@ namespace app\controllers;
 
 
 use app\base\App;
-use app\models\repositories\UserRepository;
 
 class UserController extends Controller
 {
@@ -13,7 +12,7 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        echo $this->render('../login');
+        echo $this->render('login');
     }
 
     /**
@@ -31,7 +30,7 @@ class UserController extends Controller
             $auth->login($login, $password);
         }
 
-        header("Location: {$request->getReferrer()}");
+        header("Location: /");
     }
 
     /**

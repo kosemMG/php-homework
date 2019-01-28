@@ -19,6 +19,25 @@ class Cookie
     }
 
     /**
+     * Returns a user's id from cookies.
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $_COOKIE['user_id'] ?? null;
+    }
+
+    /**
+     * Sets a user's id into cookie.
+     * @param int $id
+     * @param int $expire
+     */
+    public function setUserId(int $id, int $expire)
+    {
+        setcookie('user_id', $id, $expire);
+    }
+
+    /**
      * Checks if a cookie element is set.
      * @param string $key
      * @return bool

@@ -11,6 +11,7 @@ use app\models\repositories\UserRepository;
  */
 class Auth
 {
+    private $user_id_label;
     private $login_label;
     private $password_label;
     private $admin_login;
@@ -20,6 +21,7 @@ class Auth
      */
     public function __construct()
     {
+        $this->user_id_label = 'user_id';
         $this->login_label = 'login';
         $this->password_label = 'password';
         $this->admin_login = 'admin';
@@ -43,11 +45,11 @@ class Auth
      */
     public function isAuthorized(): bool
     {
-        $salt = App::call()->config['salt'];
-        $cookie_password = md5(App::call()->cookie->get($this->password_label) . $salt);
-        $session_password = md5(App::call()->session->get($this->password_label) . $salt);
+        $session_id = App::call()->session->getUserId();
+        $cookie_id = App::call()->cookie->getUserId();
+        var_dump($session_id, $cookie_id);
 
-        return isset($cookie_password) || isset($session_password);
+        return !is_null($session_id) || !is_null($cookie_id);
     }
 
     /**
@@ -61,17 +63,11 @@ class Auth
 
         foreach ($users as $user) {
             if ($login === $user->login && $password === $user->password) {
-                $salt = App::call()->config['salt'];
-                $session = App::call()->session;
-
-                $session->set('user_id', $user->id);
-                $session->set($this->login_label, $user->login);
-                $session->set($this->password_label, md5($user->id . $salt));
+                App::call()->session->setUserId($user->id);
 
                 $save_password = isset(App::call()->request->getParams()['save']);
                 if ($save_password) {
-                    setcookie($this->login_label, $user->login, time() + 15 * 60);
-                    setcookie($this->password_label, md5($user->id . $salt), time() + 15 * 60);
+                    App::call()->cookie->setUserId($user->id, time() + 15 * 60);
                 }
             }
         }
@@ -84,16 +80,14 @@ class Auth
     {
         $cookie = App::call()->cookie;
 
-        if ($cookie->is_set($this->login_label)) {
-            $cookie->erase($this->login_label);
-            $cookie->erase($this->password_label);
+        if ($cookie->is_set($this->user_id_label)) {
+            $cookie->erase($this->user_id_label);
         }
 
         $session = App::call()->session;
 
-        if ($session->is_set($this->login_label)) {
-            $session->erase($this->login_label);
-            $session->erase($this->password_label);
+        if ($session->is_set($this->user_id_label)) {
+            $session->erase($this->user_id_label);
         }
     }
 

@@ -11,11 +11,18 @@
 <div class="header">
     This is a header.<br><br>
     <nav>
-        <a href="/">Catalog</a>&nbsp;&nbsp;&nbsp;<a href="/cart">Cart</a>&nbsp;&nbsp;&nbsp;<a href="/user">Log in</a>
-    </nav><br>
+        <a href="/">Catalog</a>&nbsp;&nbsp;&nbsp;
+        <a href="/cart">Cart</a>&nbsp;&nbsp;&nbsp;
+        <?php if (!$allow): ?>
+            <a href="/user">Log in</a>
+        <?php else: ?>
+            <a href="/user/logout">Log out</a>
+        <?php endif; ?>
+    </nav>
+    <br>
 </div>
 <div class="content">
-    <?=$content?>
+    <?= $content ?>
 </div>
 <br>
 <div class="footer">This is a footer.</div>

@@ -12,8 +12,13 @@ class CartController extends Controller
      */
     protected function actionIndex()
     {
-        $cart = (new CartRepository())->getCart();
-        echo $this->render('cart', ['cart' => $cart]);
+        $user_id = App::call()->session->getUserId();
+        if ($user_id) {
+            $cart = (new CartRepository())->getCart($user_id);
+            echo $this->render('cart', ['cart' => $cart]);
+        } else {
+            echo $this->render('unauthorized');
+        }
     }
 
 
@@ -22,9 +27,24 @@ class CartController extends Controller
      */
     protected function actionAdd()
     {
-        $id = App::call()->request->getParams()['id'];
-        (new CartRepository())->addToCart($id);
-        header('Location: /');
+        $request = App::call()->request;
+
+        if (App::call()->auth->isAuthorized() && $request->isPost()) {
+            $user_id = (int)App::call()->session->getUserId();
+            $id = (int)$request->getParams()['id'];
+            $amount = (int)$request->getParams()['amount'];
+
+            if ($amount > 0) {
+                (new CartRepository())->addToCart($user_id, $id, $amount);
+                header('Location: /');
+            } else {
+                header("Location: {$request->getReferrer()}");
+            }
+
+        } else {
+            echo $this->render('unauthorized');
+        }
+
     }
 
 
@@ -33,8 +53,10 @@ class CartController extends Controller
      */
     protected function actionRemove()
     {
-        $id = App::call()->request->getParams()['id'];
-        (new CartRepository())->remove($id);
+        $user_id = (int)App::call()->session->getUserId();
+        $id = (int)App::call()->request->getParams()['id'];
+
+        (new CartRepository())->remove($user_id, $id);
         header('Location: /cart');
     }
 
@@ -44,8 +66,9 @@ class CartController extends Controller
      */
     protected function actionReduce()
     {
-        $id = App::call()->request->getParams()['id'];
-        (new CartRepository())->removeOne($id);
+        $user_id = (int)App::call()->session->getUserId();
+        $id = (int)App::call()->request->getParams()['id'];
+        (new CartRepository())->removeOne($user_id, $id);
         header('Location: /cart');
     }
 

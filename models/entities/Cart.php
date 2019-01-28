@@ -11,14 +11,14 @@ class Cart extends Entity
 {
     public $properties = [
         'id' => '',
-        'user_id' => 1,
+        'user_id' => '',
         'product_id' => '',
         'amount' => ''
     ];
 
     public $old_properties = [
         'id' => '',
-        'user_id' => 1,
+        'user_id' => '',
         'product_id' => '',
         'amount' => ''
     ];

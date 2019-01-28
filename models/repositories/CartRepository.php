@@ -33,13 +33,14 @@ class CartRepository extends Repository
 
 
     /**
-     * Returns an array of cart products objects.
+     * Returns an array of cart products objects by user id.
+     * @param int $user_id
      * @return array
      */
-    public function getCart()
+    public function getCart(int $user_id)
     {
         $sql = "SELECT cart.user_id, cart.product_id, products.image_path, products.name, cart.amount, (products.price * cart.amount) AS price FROM  
-                products, cart WHERE cart.product_id = products.id";
+                products, cart WHERE cart.product_id = products.id AND cart.user_id = {$user_id}";
 
         return $this->db->queryAllObjects($sql, \stdClass::class);
     }
@@ -47,19 +48,24 @@ class CartRepository extends Repository
 
     /**
      * Adds a new product to the cart (in DB).
+     * @param int $user_id
      * @param int $id
+     * @param int $amount
      */
-    public function addToCart(int $id)
+    public function addToCart(int $user_id, int $id, int $amount)
     {
         $cart_products = $this->getAll();
 
         $product = new Cart();
+        $product->user_id = $user_id;
         $product->product_id = $id;
-        $product->amount = 1;
+        $product->amount = $amount;
+
 
         foreach ($cart_products as $cart_product) {
-            if ($cart_product->product_id == $id) {
+            if ($cart_product->product_id == $id && $cart_product->user_id == $user_id) {
                 $cart_product = $this->getOne($id, 'product_id');
+                $product->user_id = $cart_product->user_id;
                 $product->id = $cart_product->id;
                 $product->amount = $cart_product->amount + 1;
                 break;
@@ -71,10 +77,12 @@ class CartRepository extends Repository
 
     /**
      * Removes an item from a cart by reducing amount column.
+     * @param int $user_id
      * @param int $id
      */
-    public function removeOne(int $id)
+    public function removeOne(int $user_id, int $id)
     {
+        //TODO remove an item by user id and product id
         $cart_product = $this->getOne($id, 'product_id');
 
         if ($cart_product->amount > 1) {
@@ -90,10 +98,12 @@ class CartRepository extends Repository
 
     /**
      * Removes a whole record from a 'cart' table.
+     * @param int $user_id
      * @param int $id
      */
-    public function remove(int $id)
+    public function remove(int $user_id, int $id)
     {
+        //TODO remove an item by user id and product id
         $product = new Cart();
         $product->product_id = $id;
         $cart_product = $this->getOne($id, 'product_id');

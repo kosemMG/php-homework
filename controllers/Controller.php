@@ -55,9 +55,12 @@ abstract class Controller
     protected function render(string $template, array $params = [])
     {
         if ($this->use_layout) {
+            $user_id = App::call()->session->getUserId();
+            $allow = App::call()->auth->isAuthorized();
+
             $content = $this->renderTemplate($template, $params);
             $result = $this->renderTemplate(App::call()->config['layouts_dir']
-                . $this->layout, ['content' => $content]);
+                . $this->layout, ['allow' => $allow, 'content' => $content]);
 
             return $result;
         }

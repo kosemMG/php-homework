@@ -23,7 +23,6 @@ class Request
 
     /**
      * Request constructor.
-     * @throws RequestException
      */
     public function __construct()
     {
@@ -37,7 +36,6 @@ class Request
 
     /**
      * Parse a URL by regular expression.
-     * @throws RequestException
      */
     private function parseRequest()
     {
