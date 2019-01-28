@@ -61,13 +61,11 @@ class CartRepository extends Repository
         $product->product_id = $id;
         $product->amount = $amount;
 
-
         foreach ($cart_products as $cart_product) {
             if ($cart_product->product_id == $id && $cart_product->user_id == $user_id) {
-                $cart_product = $this->getOne($id, 'product_id');
-                $product->user_id = $cart_product->user_id;
+                $cart_product = $this->getOneByMany(['user_id' => $user_id, 'product_id' => $id]);
                 $product->id = $cart_product->id;
-                $product->amount = $cart_product->amount + 1;
+                $product->amount = $cart_product->amount + $amount;
                 break;
             }
         }
@@ -82,17 +80,17 @@ class CartRepository extends Repository
      */
     public function removeOne(int $user_id, int $id)
     {
-        //TODO remove an item by user id and product id
-        $cart_product = $this->getOne($id, 'product_id');
+        $cart_product = $this->getOneByMany(['user_id' => $user_id, 'product_id' => $id]);
 
-        if ($cart_product->amount > 1) {
+        if ((int)$cart_product->amount > 1) {
             $product = new Cart();
+            $product->user_id = $user_id;
             $product->product_id = $id;
             $product->id = $cart_product->id;
             $product->amount = $cart_product->amount - 1;
             $this->commitChange($product);
         } else {
-            $this->remove($id);
+            $this->remove($user_id, $id);
         }
     }
 
@@ -103,10 +101,10 @@ class CartRepository extends Repository
      */
     public function remove(int $user_id, int $id)
     {
-        //TODO remove an item by user id and product id
         $product = new Cart();
+        $product->user_id = $user_id;
         $product->product_id = $id;
-        $cart_product = $this->getOne($id, 'product_id');
+        $cart_product = $this->getOneByMany(['user_id' => $user_id, 'product_id' => $id]);
         $product->id = $cart_product->id;
 
         $this->delete($product);

@@ -25,11 +25,11 @@ abstract class Repository implements IRepository
 
     /**
      * Creates an object from a database record by assigned column.
-     * @param int $value
+     * @param mixed $value
      * @param string $column
      * @return object
      */
-    public function getOne(int $value, string $column = 'id')
+    public function getOne($value, string $column = 'id')
     {
         $table_name = $this->getTableName();
         $sql = "SELECT * FROM `{$table_name}` WHERE {$column} = :{$column}";
@@ -46,6 +46,29 @@ abstract class Repository implements IRepository
         $table_name = $this->getTableName();
         $sql = "SELECT * FROM `{$table_name}`";
         return $this->db->queryAllObjects($sql, $this->getEntityClass());
+    }
+
+
+    /**
+     * Creates an object from a database record by several columns.
+     * @param array $params
+     * @return object
+     */
+    public function getOneByMany(array $params)
+    {
+        $placeholders = [];
+        $modified_params = [];
+
+        foreach ($params as $key => $value) {
+            $placeholders[$key] = "{$key} = :{$key}";
+            $key = ':' . $key;
+            $modified_params[$key] = $value;
+        }
+
+        $table_name = $this->getTableName();
+        $sql = "SELECT * FROM `{$table_name}` WHERE " . implode(' AND ', $placeholders);
+
+        return $this->db->queryObject($sql, $this->getEntityClass(), $modified_params);
     }
 
 
@@ -84,6 +107,7 @@ abstract class Repository implements IRepository
             $this->insert($entity);
         } else {
             $this->update($entity);
+
         }
     }
 
@@ -125,8 +149,10 @@ abstract class Repository implements IRepository
     protected function update(Entity $entity)
     {
         $set_string = '';
+        $set_array = [];
         $params = [];
         $new_properties = [];
+
 
         foreach ($entity->properties as $key => $value) {
             if ($entity->properties[$key] !== $entity->old_properties[$key]) {
@@ -135,15 +161,15 @@ abstract class Repository implements IRepository
             }
         }
 
-        $params[':id'] = $entity->id;
-
+        $i = 0;
         foreach ($new_properties as $key => $value) {
-            if ($new_properties[$key] === end($new_properties)) {
-                $set_string .= "`{$key}` = :{$key} ";
-            } else {
-                $set_string .= "`{$key}` = :{$key}, ";
-            }
+            $set_array[$i] = "`{$key}` = :{$key}";
+            $i++;
         }
+
+        $set_string = implode(', ', $set_array);
+
+        $params[':id'] = $entity->id;
 
         $table_name = $this->getTableName();
         $sql = "UPDATE `{$table_name}` SET {$set_string} WHERE id = :id";
